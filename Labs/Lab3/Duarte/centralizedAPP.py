@@ -1,3 +1,5 @@
+import pickle
+
 class book:
 
     def __init__(self, author, title, publicationYear, id):
@@ -17,6 +19,9 @@ class bookDB:
         newBook = book(author, title, publicationYear, self.currentId)
         self.books.append(newBook.__dict__)
         self.currentId += 1
+        f = open("bookDatabase.pickle", "wb")
+        pickle.dump(self.__dict__, f)
+        f.close()
 
     def showBook(self, id):
         """Shows book information given an id"""
@@ -57,6 +62,9 @@ class bookDB:
 
 class dbUI:
 
+    def __init__(self, db):
+        self.bookDB = db
+
     def readInput(self):
 
         action = input("Action (NEW, SHOW, AUTHORS, SEARCH_AUTH, SEARCH_YEAR, EXIT): ")
@@ -85,10 +93,19 @@ class dbUI:
         elif action == "EXIT":
             return 0
 
-bookDB = bookDB()
-dbUI = dbUI()
+try:
+    f = open("bookDatabase.pickle", "rb")
+    oldData = pickle.load(f)
+    bookDB = bookDB()
+    bookDB.books = oldData['books']
+    bookDB.currentId = oldData['currentId']
+    print(bookDB)
+    f.close()
+except:
+    bookDB = bookDB()
+
+dbUI = dbUI(bookDB)
 
 while True:
     if dbUI.readInput() == 0:
-        # print(bookDB.books)
         break
