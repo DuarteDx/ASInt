@@ -20,24 +20,25 @@ class bookDB:
 
     def showBook(self, id):
         """Shows book information given an id"""
-        if id <= len(self.books):
-            print("Author: " + self.books[id].author)
-            print("Title: " + self.books[id].title)
-            print("Publication year: " + self.books[id].publicationYear)
+        id = int(id)
+        if id < len(self.books):
+            print("Author: " + self.books[id]['author'])
+            print("Title: " + self.books[id]['title'])
+            print("Publication year: " + self.books[id]['publicationYear'])
         else:
             print("Ups, looks like that book isn't in the database")
 
     def listAllAuthors(self):
         """Displays all authors in database"""
         for book in self.books:
-            print(book.author)
+            print(book['author'])
 
     def listBooksFromAuthor(self, author):
         """Displays books from a given author"""
         booksByAuthor = []
         for book in self.books:
-            if book.author == author:
-                booksByAuthor.append(book.title)
+            if book['author'] == author:
+                booksByAuthor.append(book['title'])
         if len(booksByAuthor) == 0:
             print("Looks like there are no books from that author")
         else:
@@ -47,8 +48,8 @@ class bookDB:
         """Displays books published in a given year"""
         booksByYear = []
         for book in self.books:
-            if book.publicationYear == year:
-                booksByYear.append(book.title)
+            if book['publicationYear'] == year:
+                booksByYear.append(book['title'])
         if len(booksByYear) == 0:
             print("Looks like there are no books from that year yet")
         else:
@@ -81,6 +82,7 @@ class dbUI:
             year = input("Year: ")
             bookDB.listBooksFromYear(year)
 
+        # Not yet working
         elif action == "EXIT":
             return 0
 
@@ -89,4 +91,4 @@ dbUI = dbUI()
 
 while True:
     dbUI.readInput()
-    print(bookDB.books)
+    # print(bookDB.books)
