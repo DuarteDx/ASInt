@@ -2,6 +2,7 @@ import book
 import bookDB
 import dbUI
 import pickle
+import Pyro4
 
 try:
     f = open("bookDatabase.pickle", "rb")
