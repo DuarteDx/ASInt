@@ -82,7 +82,6 @@ class dbUI:
             year = input("Year: ")
             bookDB.listBooksFromYear(year)
 
-        # Not yet working
         elif action == "EXIT":
             return 0
 
@@ -90,5 +89,6 @@ bookDB = bookDB()
 dbUI = dbUI()
 
 while True:
-    dbUI.readInput()
-    # print(bookDB.books)
+    if dbUI.readInput() == 0:
+        # print(bookDB.books)
+        break
