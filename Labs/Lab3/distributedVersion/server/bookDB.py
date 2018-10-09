@@ -11,6 +11,7 @@ class bookDB:
         """Inserts book into database"""
         newBook = book.book(author, title, publicationYear, self.currentId)
         self.books.append(newBook.__dict__)
+        print("new Book")
         self.currentId += 1
         f = open("bookDatabase.pickle", "wb")
         pickle.dump(self.__dict__, f)
