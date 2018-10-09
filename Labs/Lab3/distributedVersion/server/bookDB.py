@@ -1,4 +1,5 @@
 import pickle
+import book
 
 class bookDB:
 
@@ -8,7 +9,7 @@ class bookDB:
 
     def insertBook(self, author, title, publicationYear):
         """Inserts book into database"""
-        newBook = book(author, title, publicationYear, self.currentId)
+        newBook = book.book(author, title, publicationYear, self.currentId)
         self.books.append(newBook.__dict__)
         self.currentId += 1
         f = open("bookDatabase.pickle", "wb")
