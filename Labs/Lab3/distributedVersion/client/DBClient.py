@@ -9,6 +9,9 @@ print(uri)
 # Get proxy for remote object
 db = Pyro4.Proxy(uri)
 
+print("Received db:\n")
+print(str(db))
+
 # Call methods and access attributes
 ui = dbUI.dbUI(db)
 

@@ -11,7 +11,6 @@ class bookDB:
         """Inserts book into database"""
         newBook = book.book(author, title, publicationYear, self.currentId)
         self.books.append(newBook.__dict__)
-        print("new Book")
         self.currentId += 1
         f = open("bookDatabase.pickle", "wb")
         pickle.dump(self.__dict__, f)
@@ -21,16 +20,17 @@ class bookDB:
         """Shows book information given an id"""
         id = int(id)
         if id < len(self.books):
-            print("Author: " + self.books[id]['author'])
-            print("Title: " + self.books[id]['title'])
-            print("Publication year: " + self.books[id]['publicationYear'])
+            return("Author: " + self.books[id]['author'] + "\nTitle: " + self.books[id]['title'] +
+                "\nPublication year: " + self.books[id]['publicationYear'])
         else:
-            print("Ups, looks like that book isn't in the database")
+            return("Ups, looks like that book isn't in the database\n")
 
     def listAllAuthors(self):
         """Displays all authors in database"""
+        authList = ""
         for book in self.books:
-            print(book['author'])
+            authList = authList + book['author']
+        return authList
 
     def listBooksFromAuthor(self, author):
         """Displays books from a given author"""
@@ -39,9 +39,9 @@ class bookDB:
             if book['author'] == author:
                 booksByAuthor.append(book['title'])
         if len(booksByAuthor) == 0:
-            print("Looks like there are no books from that author")
+            return("Looks like there are no books from that author")
         else:
-            print(booksByAuthor)
+            return(str(booksByAuthor))
 
     def listBooksFromYear(self, year):
         """Displays books published in a given year"""
@@ -50,6 +50,6 @@ class bookDB:
             if book['publicationYear'] == year:
                 booksByYear.append(book['title'])
         if len(booksByYear) == 0:
-            print("Looks like there are no books from that year yet")
+            return("Looks like there are no books from that year yet")
         else:
-            print(booksByYear)
+            return(str(booksByYear))

@@ -15,18 +15,18 @@ class dbUI:
 
         elif action == "SHOW":
             id = input("Book id: ")
-            self.bookDB.showBook(id)
+            print(self.bookDB.showBook(id))
 
         elif action == "AUTHORS":
-            self.bookDB.listAllAuthors()
+            print(self.bookDB.listAllAuthors())
 
         elif action == "SEARCH_AUTH":
             author = input("Author name: ")
-            self.bookDB.listBooksFromAuthor(author)
+            print(self.bookDB.listBooksFromAuthor(author))
 
         elif action == "SEARCH_YEAR":
             year = input("Year: ")
-            self.bookDB.listBooksFromYear(year)
+            print(self.bookDB.listBooksFromYear(year))
 
         elif action == "EXIT":
             return 0
