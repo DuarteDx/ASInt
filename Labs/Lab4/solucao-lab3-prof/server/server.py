@@ -10,9 +10,10 @@ def main():
 
         db = bookDB.bookDB("mylib")
 
-        daemon = Pyro4.Daemon()
+        daemon = Pyro4.Daemon(host="194.210.229.61")
 
-        ns = Pyro4.locateNS(host="193.136.128.108", port=9090)
+        # Localiza o Name Server
+        ns = Pyro4.locateNS(host="193.136.128.104", port=9090)
         print (ns)
 
         try:
@@ -20,8 +21,9 @@ def main():
         except:
                 pass
 
-        uri = daemon.register(db, "BookDB7")
-        ns.register("BookDB7", uri)
+        # Regista a base de dados do servidor no Name Server
+        uri = daemon.register(db, "BookDB-80931")
+        ns.register("BookDB-80931", uri)
 
         try:
                 daemon.requestLoop()
