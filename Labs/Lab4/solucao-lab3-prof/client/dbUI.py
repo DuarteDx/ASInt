@@ -4,9 +4,7 @@
 class dbUI:
         def __init__(self, db):
                 self.db = db
-        def menu(self):
-
-	
+        def menu(self):	
                 exit = False
                 while not exit:
                         l = input("add show listall listauthor listyear quit?")
@@ -26,8 +24,8 @@ class dbUI:
                                         l = input('Insert id :\n')
                                         processed_line = l.split()
                                         print (processed_line[0])
-                                        if len(processed_line) ==1:
-                                                b = self.db.showBook(int(processed_line[0]))
+                                        if len(processed_line) ==1: 
+                                                self.db.showBook(int(processed_line[0]))
                                                 print (b)
                                 elif command == 'LISTALL':
                                         b_list = self.db.listAllBooks()

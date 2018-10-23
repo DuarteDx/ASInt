@@ -10,10 +10,10 @@ def main():
 
         db = bookDB.bookDB("mylib")
 
-        daemon = Pyro4.Daemon(host="194.210.229.61")
+        daemon = Pyro4.Daemon(host="193.136.131.82")
 
         # Localiza o Name Server
-        ns = Pyro4.locateNS(host="193.136.128.104", port=9090)
+        ns = Pyro4.locateNS(host="193.136.128.108", port=9090)
         print (ns)
 
         try:
@@ -28,7 +28,7 @@ def main():
         try:
                 daemon.requestLoop()
         finally:
-                daemon.shutdown(True)
+                daemon.shutdown()
 
 if __name__=="__main__":
         main() 
