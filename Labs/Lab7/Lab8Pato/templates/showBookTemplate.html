@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show Book</title>
+</head>
+<body>
+<h1> Le book</h1>
+
+<p>
+    ID: {{ id }} 
+    <br>
+    title: {{ title }}
+    <br>
+    year: {{ year }}
+    <br>
+    likes: {{ likes }}
+    <br>
+</p>
+
+<form action = "API/books/{{id}}/likes" method = "POST">
+
+    <button type="submit">Like</button>
+</form>
+
+</body>
+</html>
