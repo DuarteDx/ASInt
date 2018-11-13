@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book DB</title>
+</head>
+<body>
+
+<h1>Book DB</h1>
+The book Database has now {{ count_books}} books.
+
+<h2>Links</h2>
+<a href="/addBooksForm">AddBooks</a>
+<a href="showBookForm"> Show Book</a>
+<a href="/listAllBooks">listAllBooks</a>
+<a href="/searchBooksAuthor">listBooksAuthor</a>
+<a href="/searchBooksYear">listBooksYear</a>
+
+
+<form name="addLikeForm" action="addLike(addLikeForm.bookId)" method="post">
+    Id: <input type="number" name="bookId">
+    <button type="submit">Add like</button>
+</form>
+
+</body>
+    <script>
+        function addLike(id) {
+            url = '/API/books/' + id + '/likes';
+            post('/API/books/id/likes');
+        }
+    </script>
+</html>
