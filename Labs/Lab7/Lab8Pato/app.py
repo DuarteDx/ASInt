@@ -12,6 +12,34 @@ def hello_world():
     count = len(db.listAllBooks())
     return render_template("mainPage.html", count_books=count)
 
+@app.route('/API/books/<id>/likes', methods = ['GET', 'POST'])
+def bookLikesAPI(id):    
+    if request.method == "GET":
+        return jsonify(db.bib[int(id)].likes)
+
+    elif request.method == "POST":
+        db.bib[int(id)].likes += 1
+        return jsonify(db.bib[int(id)].likes)
+
+
+@app.route('/API/books/<id>', methods = ['GET', 'POST'])
+def showBookAPI(id):    
+    if request.method == "GET":
+        bookInfo = db.showBook(int(id))
+
+    else:
+        bookInfo = db.showBook(int(id))
+
+    message = { "id": bookInfo.id,
+                "author": bookInfo.author,
+                "year": bookInfo.year,
+                "title": bookInfo.title,
+                "likes": bookInfo.likes
+    }
+    resp = jsonify(message)
+    resp.status_code = 200
+    return resp
+
 @app.route('/API/authors')
 def list_authors_API():    
     bookList = db.listAllBooks()
@@ -82,12 +110,12 @@ def ShowBookForm():
 @app.route('/showBook', methods=['POST', 'GET'])
 def showBook():    
     if request.method == "GET":
-        bookInf = str(db.showBook(request.args['BookID']))
-        return render_template("showBookTemplate.html", bookInfo = bookInf)
+        bookInfo = db.showBook(int(request.args['BookID']))
+        return render_template("showBookTemplate.html", id=bookInfo.id, title=bookInfo.title, author=bookInfo.author, likes=bookInfo.likes, year=bookInfo.year)
 
-    else:
-        bookInf = db.listBooksYear(request.form['BookID'])
-        return render_template("showBookTemplate.html", bookInfo = bookInf)
+    elif request.method == 'POST':
+        bookInfo = db.showBook(int(request.form['BookID']))
+        return render_template("showBookTemplate.html", bookInfo=str(bookInfo), id=bookInfo.id, title=bookInfo.title, author=bookInfo.author, likes=bookInfo.likes, year=bookInfo.year)
     
     return
 

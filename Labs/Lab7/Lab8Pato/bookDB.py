@@ -9,6 +9,10 @@ class bookDB:
                         f = open('bd_dump'+name, 'rb')
                         self.bib = pickle.load(f)
                         f.close()
+
+                        for b in self.bib:
+                                if not hasattr(self.bib[b],'likes'):
+                                        self.bib[b].likes = 0
                 except IOError:
                         self.bib = {}
         def addBook(self, author, title, year):
