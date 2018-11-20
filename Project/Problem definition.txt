@@ -1,0 +1,44 @@
+CLIENT (HTML/CSS + Javascript)
+- Send message with location
+- Send message that defines range
+- Send message to all users in range
+- Request list of people in range and list of people in same building
+
+ADMIN (Python)
+- Send file with buildings (id, name, latitude, longitude)
+- Request list of logged in users 
+- Request list of users inside a certain building
+- Request list of exchanged messages and movements by users
+- Request list of messages by building
+
+BOT (Python)
+- Send message to users in building (message, building id)
+
+Server (Flask)
+    CLIENT
+    - Receive location message from users
+    - Receive message that defines range
+    - Receive message from user and broadcast it to users in range 
+    - Send list of people in range and list of people in same building
+
+    ADMIN
+    - Receive file with buildings and add them to database 
+    - Send list of logged in users 
+    - Send list of users inside a certain building 
+    - Send list of exchanged messages and movements by users
+    - Send list of messages by building
+
+    BOT
+    - Receive message and broadcast it to users in given building
+
+    OTHER FUNCTIONS
+    - Get data from database
+
+Database (Lists in python)
+- Building (id, nome, latitude, longitude)
+- Messages (id, time, latitude, longitude, range, building id, user id, message)
+- Users (id, range)
+- Locations (user id, latitude, longitude, time)
+
+
+Database (MySQL) [To be done...]
