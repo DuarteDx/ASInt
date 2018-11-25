@@ -10,28 +10,30 @@
 <body>
 
     <div id="sendLocation">
-        <button v-on:click="locationSentCounter += 1">Send location</button>
-        <p>Location has been sent {{ locationSentCounter }} times.</p>
+        <button v-on:click="handleSubmit">Send location</button>
+        <p>Location has been sent <strong>{{ locationSentCounter }}</strong> times.</p>
         <p>Last time sent: {{ locationSentLast }}</p>
     </div>
 
     <div id="sendRange">
         <form @submit.prevent="handleSubmit">
             <label>
-                Max range (meters):
+                <p>Max range (meters):</p>
                 <input type="number" v-model="range">
+                <br>
             </label>
-            <button type="submit">Submit</button>
+            <button type="submit">Send range</button>
         </form>
     </div>
 
     <div id="sendMessage">
         <form @submit.prevent="handleSubmit">
             <label>
-                Send a message:
+                <p>Send a message:</p>
                 <input type="text" v-model="userMessage">
+                <br>
             </label>
-            <button type="submit">Submit</button>
+            <button type="submit">Send message</button>
         </form>
     </div>
 
@@ -39,6 +41,13 @@
         <button v-on:click="getListOfNearbyUsers">Get nearby users</button>
         <li v-for="user in nearbyUsersList">
             {{ user.name }}
+        </li>
+    </div>
+
+    <div id="getMessages">
+        <button v-on:click="getListOfMessages">Get messages</button>
+        <li v-for="message in messageList">
+            <strong>{{message.from}}</strong>: {{ message.content }}
         </li>
     </div>
     

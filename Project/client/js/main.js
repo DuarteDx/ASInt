@@ -1,9 +1,19 @@
 var sendLocation = new Vue({
-    el: '#sendLocation',
-    data: {
-      locationSentCounter: 0,
-      locationSentLast: 'xxx'
+  el: '#sendLocation',
+  data: {
+    locationSentCounter: 0,
+    locationSentLast: 'nothing sent'
+  },
+  methods: {
+    handleSubmit() {
+      this.locationSentCounter += 1;
+
+      var currentdate = new Date();
+      this.locationSentLast = currentdate.getHours() + ":"  
+                              + currentdate.getMinutes() + ":" 
+                              + currentdate.getSeconds();
     }
+  }
 })
 
 var sendRange = new Vue({
@@ -41,7 +51,27 @@ var getNearbyUsers = new Vue({
     getListOfNearbyUsers() {
       //ToDo: Ajax code to get list of users
       console.log('get users button pressed');
-      this.nearbyUsersList = [{name: 'Lourenço'}];
+      this.nearbyUsersList = [{name: 'Lourenço Pato'},
+                              {name: 'José Peres'}, 
+                              {name: 'Francisco Azevedo'}
+                            ];
+    }
+  }
+})
+
+var getMessages = new Vue({
+  el: '#getMessages',
+  data: {
+    messageList: [],
+  },
+  methods: {
+    getListOfMessages() {
+      //ToDo: Ajax code to get list of messages
+      console.log('get messages button pressed');
+      this.messageList = [{from: 'Duarte', content: 'Oi, tudo bem?'},
+                          {from: 'BotSDEEC', content: 'Não baloiçar nas cadeiras!'},
+                          {from: 'ISTPress', content: 'Notícia de última hora: grupo de alunos sobredotados tiram 20 na cadeira de ASint!'}
+                        ];
     }
   }
 })
