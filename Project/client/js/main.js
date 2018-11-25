@@ -1,3 +1,5 @@
+var serverURL = "http://127.0.0.1:5000";
+
 var sendLocation = new Vue({
   el: '#sendLocation',
   data: {
@@ -12,6 +14,9 @@ var sendLocation = new Vue({
       this.locationSentLast = currentdate.getHours() + ":"  
                               + currentdate.getMinutes() + ":" 
                               + currentdate.getSeconds();
+
+      url = serverURL + "/sendLocation";
+      sendPostRequest(url);
     }
   }
 })
