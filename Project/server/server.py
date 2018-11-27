@@ -32,7 +32,7 @@ def getClientLocation():
     print(userID)
     print(location)
     
-    #Update user 
+    #Update user in database
     #DB.updateUser(userID, latitude=latitude, longitude=longitude, range=None)
     #print(userLocations)
     return 'Location received: ' + str(latitude) + '  ' + str(longitude) + ' by id: ' + str(userID)
@@ -46,14 +46,30 @@ def getClientRange():
     #Get data from client
     data = request.get_json(silent=True)
     #Parse response
+    userID = data['data']['user']
     userRange = data['data']['range']
-    print('Received range from client: ' + str(userRange))
-    return 'Range received: ' + str(userRange)
+    print('Received range from ' + str(userID) + ': ' + str(userRange))
 
-'''@server.route('/broadcastClientMessage')
+    #ToDo: Add to database
+
+    return 'Range received from ' + str(userID) + ': ' + str(userRange)
+
+@server.route('/broadcastClientMessage', methods=['POST', 'OPTIONS'])
+@cross_origin()
 def broadcastClientMessage():
     #Get a message from a client and broadcast it to nearby users
 
+    #Get data from client
+    data = request.get_json(silent=True)
+    #Parse response
+    userID = data['data']['user']
+    userMessage = data['data']['message']
+    print('Message from ' + str(userID) + ': ' + str(userMessage))
+
+    #ToDo: Add to database
+
+    return 'Message received from ' + str(userID) + ': ' + str(userMessage)
+'''
 @server.route('/getPeopleInRange')
 def getPeopleInRange():
     #Send a list of nearby users to client

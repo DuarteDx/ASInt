@@ -25,5 +25,5 @@ function successFunction(position) {
     //console.log('Your latitude is :'+lat+' and longitude is '+long);
     //Send user id and respective coordinates
     url = serverURL + "/sendLocation";
-    sendPostRequest(url, {'user': '81356','location': {'latitude':lat, 'longitude':long}});
+    sendPostRequest(url, {'user': dummyID,'location': {'latitude':lat, 'longitude':long}});
 }

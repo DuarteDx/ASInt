@@ -1,4 +1,5 @@
 var serverURL = "http://127.0.0.1:5000";
+const dummyID = 81356;
 
 var sendLocation = new Vue({
   el: '#sendLocation',
@@ -33,9 +34,8 @@ var sendRange = new Vue({
   },
   methods: {
     handleSubmit() {
-      //ToDo: Ajax code to send message
       url = serverURL + '/defineRange';
-      sendPostRequest(url, {'range':this.range});
+      sendPostRequest(url, {'user':dummyID, 'range':this.range});
       console.log('Range sent: ' + this.range);
     }
   }
@@ -48,7 +48,8 @@ var sendMessage = new Vue({
   },
   methods: {
     handleSubmit() {
-      //ToDo: Ajax code to send message
+      url = serverURL + '/broadcastClientMessage'
+      sendPostRequest(url, {'user':dummyID,'message':this.userMessage})
       console.log('Message sent: ' + this.userMessage);
     }
   }
