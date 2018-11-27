@@ -37,8 +37,10 @@ Server (Flask)
 Database (Lists in python)
 - Building (id, nome, latitude, longitude)
 - Messages (id, time, latitude, longitude, range, building id, user id, message)
-- Users (id, range)
+- Users (id, latitude, longitude, range)
 - Locations (user id, latitude, longitude, time)
 
+Definir interfaces e documentar:
+    - URL, método, argumentos
 
 Database (MySQL) [To be done...]
