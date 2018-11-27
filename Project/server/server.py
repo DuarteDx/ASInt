@@ -35,7 +35,7 @@ def getClientLocation():
     #Update user in database
     #DB.updateUser(userID, latitude=latitude, longitude=longitude, range=None)
     #print(userLocations)
-    return 'Location received: ' + str(latitude) + '  ' + str(longitude) + ' by id: ' + str(userID)
+    return '[S]Location received: ' + str(latitude) + '  ' + str(longitude) + ' by id: ' + str(userID)
 
 
 @server.route('/defineRange', methods=['POST', 'OPTIONS'])
@@ -52,7 +52,7 @@ def getClientRange():
 
     #ToDo: Add to database
 
-    return 'Range received from ' + str(userID) + ': ' + str(userRange)
+    return '[S]Range received from ' + str(userID) + ': ' + str(userRange)
 
 @server.route('/broadcastClientMessage', methods=['POST', 'OPTIONS'])
 @cross_origin()
@@ -68,7 +68,7 @@ def broadcastClientMessage():
 
     #ToDo: Add to database
 
-    return 'Message received from ' + str(userID) + ': ' + str(userMessage)
+    return '[S]Message received from ' + str(userID) + ': ' + str(userMessage)
 
 @server.route('/getPeopleInRange', methods=['POST', 'OPTIONS'])
 @cross_origin()
@@ -85,7 +85,7 @@ def getPeopleInRange():
     #nearbyUsersList = ...
 
     #return nearbyUsersList
-    return '1'
+    return '[S]1'
 
 @server.route('/getUserMessages', methods=['POST', 'OPTIONS'])
 @cross_origin()
@@ -102,7 +102,7 @@ def getUserMessages():
     #listOfMessages = ...
 
     #return listOfMessages
-    return '2'
+    return '[S]2'
 
 '''
 #################

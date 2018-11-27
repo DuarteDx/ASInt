@@ -10,7 +10,7 @@ function sendPostRequest(url, data) {
     })
         .then(function(response) {
             //console.log(response);
-            console.log('Server response:');
+            console.log('[C]Server response:');
             console.log(response.data);
         })
         .catch(function (error) {
