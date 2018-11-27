@@ -1,7 +1,8 @@
-function sendPostRequest(url) {
+function sendPostRequest(url, data) {
     console.log('batatas');
 
     axios.post(url, {
+        data,
         headers: {
             "Access-Control-Allow-Origin": "localhost"
         },
@@ -14,4 +15,14 @@ function sendPostRequest(url) {
         .catch(function (error) {
             console.log(error);
         })
+}
+
+//Get latitute & longitude
+function successFunction(position) {
+    var lat = position.coords.latitude;
+    var long = position.coords.longitude;
+    console.log('Your latitude is :'+lat+' and longitude is '+long);
+    //Send user id and respective coordinates
+    url = serverURL + "/sendLocation";
+    sendPostRequest(url, {'user': '81356','location': {'latitude':lat, 'longitude':long}});
 }

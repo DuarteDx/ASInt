@@ -11,7 +11,7 @@ server = Flask(__name__)
 cors = CORS(server)
 server.config['CORS_HEADERS'] = 'Content-Type'
 
-userLocations = []
+#database = DB()
 
 ###################
 # CLIENT ENDPOINTS
@@ -21,11 +21,21 @@ userLocations = []
 @cross_origin()
 def getClientLocation():
     #Get a location from a client and add it to database
+    
+    #Get response from server
     data = request.get_json(silent=True)
-    print(data)
-    userLocations.append(data)
-    print(userLocations)
-    return 'Location sent!'
+    #Parse response
+    userID = data['data']['user']
+    location = data['data']['location']
+    latitude = location['latitude']
+    longitude = location['longitude']
+    print(userID)
+    print(location)
+    
+    #Update user 
+    #DB.updateUser(userID, latitude=latitude, longitude=longitude, range=None)
+    #print(userLocations)
+    return 'Location sent:'
 
 
 '''@server.route('/defineRange')
