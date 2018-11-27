@@ -1,5 +1,5 @@
 function sendPostRequest(url, data) {
-    console.log('batatas');
+    console.log('Starting ajax post request');
 
     axios.post(url, {
         data,
@@ -9,8 +9,9 @@ function sendPostRequest(url, data) {
         responseType: 'json'
     })
         .then(function(response) {
-            console.log(response);
-            quote.textContent = response.data[0];
+            //console.log(response);
+            console.log('Server response:');
+            console.log(response.data);
         })
         .catch(function (error) {
             console.log(error);
@@ -21,7 +22,7 @@ function sendPostRequest(url, data) {
 function successFunction(position) {
     var lat = position.coords.latitude;
     var long = position.coords.longitude;
-    console.log('Your latitude is :'+lat+' and longitude is '+long);
+    //console.log('Your latitude is :'+lat+' and longitude is '+long);
     //Send user id and respective coordinates
     url = serverURL + "/sendLocation";
     sendPostRequest(url, {'user': '81356','location': {'latitude':lat, 'longitude':long}});

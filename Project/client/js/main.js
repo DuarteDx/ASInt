@@ -15,7 +15,7 @@ var sendLocation = new Vue({
                               + currentdate.getMinutes() + ":" 
                               + currentdate.getSeconds();
 
-      //Get latitute and longitude
+      //Get latitute and longitude and send it to server (ajax request done inside getCurrentPosition())
       if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(successFunction, console.log('error in getting location'));
       } else {
@@ -34,6 +34,8 @@ var sendRange = new Vue({
   methods: {
     handleSubmit() {
       //ToDo: Ajax code to send message
+      url = serverURL + '/defineRange';
+      sendPostRequest(url, {'range':this.range});
       console.log('Range sent: ' + this.range);
     }
   }

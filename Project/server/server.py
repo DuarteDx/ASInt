@@ -22,7 +22,7 @@ server.config['CORS_HEADERS'] = 'Content-Type'
 def getClientLocation():
     #Get a location from a client and add it to database
     
-    #Get response from server
+    #Get data from client
     data = request.get_json(silent=True)
     #Parse response
     userID = data['data']['user']
@@ -35,14 +35,22 @@ def getClientLocation():
     #Update user 
     #DB.updateUser(userID, latitude=latitude, longitude=longitude, range=None)
     #print(userLocations)
-    return 'Location sent:'
+    return 'Location received: ' + str(latitude) + '  ' + str(longitude) + ' by id: ' + str(userID)
 
 
-'''@server.route('/defineRange')
+@server.route('/defineRange', methods=['POST', 'OPTIONS'])
+@cross_origin()
 def getClientRange():
     #Get a range from a client and add it to database
 
-@server.route('/broadcastClientMessage')
+    #Get data from client
+    data = request.get_json(silent=True)
+    #Parse response
+    userRange = data['data']['range']
+    print('Received range from client: ' + str(userRange))
+    return 'Range received: ' + str(userRange)
+
+'''@server.route('/broadcastClientMessage')
 def broadcastClientMessage():
     #Get a message from a client and broadcast it to nearby users
 
