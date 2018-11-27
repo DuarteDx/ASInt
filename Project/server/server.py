@@ -69,11 +69,42 @@ def broadcastClientMessage():
     #ToDo: Add to database
 
     return 'Message received from ' + str(userID) + ': ' + str(userMessage)
-'''
-@server.route('/getPeopleInRange')
+
+@server.route('/getPeopleInRange', methods=['POST', 'OPTIONS'])
+@cross_origin()
 def getPeopleInRange():
     #Send a list of nearby users to client
 
+    #Get data from client
+    data = request.get_json(silent=True)
+    #Parse response
+    userID = data['data']['user']
+    print('User ' + str(userID) + ' requested list of nearby users')
+
+    #Get nearby users from database
+    #nearbyUsersList = ...
+
+    #return nearbyUsersList
+    return '1'
+
+@server.route('/getUserMessages', methods=['POST', 'OPTIONS'])
+@cross_origin()
+def getUserMessages():
+    #Sends a list of messages to client
+
+    #Get data from client
+    data = request.get_json(silent=True)
+    #Parse response
+    userID = data['data']['user'] 
+    print('User ' + str(userID) + ' requested his list of messages')
+
+    #Get client's messages from database
+    #listOfMessages = ...
+
+    #return listOfMessages
+    return '2'
+
+'''
 #################
 # ADMIN ENDPOINTS
 #################

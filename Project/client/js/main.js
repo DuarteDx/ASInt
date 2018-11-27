@@ -48,8 +48,8 @@ var sendMessage = new Vue({
   },
   methods: {
     handleSubmit() {
-      url = serverURL + '/broadcastClientMessage'
-      sendPostRequest(url, {'user':dummyID,'message':this.userMessage})
+      url = serverURL + '/broadcastClientMessage';
+      sendPostRequest(url, {'user':dummyID,'message':this.userMessage});
       console.log('Message sent: ' + this.userMessage);
     }
   }
@@ -63,6 +63,10 @@ var getNearbyUsers = new Vue({
   methods: {
     getListOfNearbyUsers() {
       //ToDo: Ajax code to get list of users
+      url = serverURL + '/getPeopleInRange';
+      sendPostRequest(url, {'user':dummyID});
+      console.log('Requested nearbyUsersList for ' + dummyID);
+
       console.log('get users button pressed');
       this.nearbyUsersList = [{name: 'Lourenço Pato'},
                               {name: 'José Peres'}, 
@@ -80,6 +84,10 @@ var getMessages = new Vue({
   methods: {
     getListOfMessages() {
       //ToDo: Ajax code to get list of messages
+      url = serverURL + '/getUserMessages';
+      sendPostRequest(url, {'user':dummyID});
+      console.log('Requested list of messages for ' + dummyID);
+
       console.log('get messages button pressed');
       this.messageList = [{from: 'Duarte', content: 'Oi, tudo bem?'},
                           {from: 'BotSDEEC', content: 'Não baloiçar nas cadeiras!'},
