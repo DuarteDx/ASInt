@@ -110,6 +110,7 @@ def getUserMessages():
 #################
 
 @server.route('/addBuildingToDB')
+# atenção a segurança
 def addBuildingToDB():
     #Get a building information from an admin and add the building to the database
 
