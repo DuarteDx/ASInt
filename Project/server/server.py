@@ -3,13 +3,16 @@ from flask import redirect
 from flask import request
 from flask import jsonify
 from flask_cors import CORS, cross_origin
+from DB import DB
 
 #Functions from functions.py
 import functions
 
 server = Flask(__name__)
+db = DB()
 cors = CORS(server)
 server.config['CORS_HEADERS'] = 'Content-Type'
+
 
 #database = DB()
 
@@ -20,8 +23,7 @@ server.config['CORS_HEADERS'] = 'Content-Type'
 @server.route('/sendLocation', methods=['POST', 'OPTIONS'])
 @cross_origin()
 def getClientLocation():
-    #Get a location from a client and add it to database
-    
+    #Get a location from a client and add it to database    
     #Get data from client
     data = request.get_json(silent=True)
     #Parse response
@@ -30,10 +32,9 @@ def getClientLocation():
     latitude = location['latitude']
     longitude = location['longitude']
     print(userID)
-    print(location)
-    
+    print(location)    
     #Update user in database
-    #DB.updateUser(userID, latitude=latitude, longitude=longitude, range=None)
+    db.updateUser(userID, latitude=latitude, longitude=longitude)
     #print(userLocations)
     return '[S]Location received: ' + str(latitude) + '  ' + str(longitude) + ' by id: ' + str(userID)
 
@@ -42,31 +43,27 @@ def getClientLocation():
 @cross_origin()
 def getClientRange():
     #Get a range from a client and add it to database
-
     #Get data from client
     data = request.get_json(silent=True)
     #Parse response
     userID = data['data']['user']
     userRange = data['data']['range']
     print('Received range from ' + str(userID) + ': ' + str(userRange))
-
-    #ToDo: Add to database
-
+    db.updateUser(userID, rang = userRange)
     return '[S]Range received from ' + str(userID) + ': ' + str(userRange)
 
 @server.route('/broadcastClientMessage', methods=['POST', 'OPTIONS'])
 @cross_origin()
 def broadcastClientMessage():
     #Get a message from a client and broadcast it to nearby users
-
     #Get data from client
     data = request.get_json(silent=True)
     #Parse response
     userID = data['data']['user']
     userMessage = data['data']['message']
     print('Message from ' + str(userID) + ': ' + str(userMessage))
-
-    #ToDo: Add to database
+    #Add message to database
+    db.addMessage(userID, userMessage)
 
     return '[S]Message received from ' + str(userID) + ': ' + str(userMessage)
 
