@@ -20,6 +20,20 @@ server.config['CORS_HEADERS'] = 'Content-Type'
 # CLIENT ENDPOINTS
 ###################
 
+@server.route('/sendUserInfo', methods=['POST', 'OPTIONS'])
+@cross_origin()
+def getClientInfo():
+    #Get data from client
+    data = request.get_json(silent=True)
+    #Parse response
+    userID = data['data']['id']
+    userName = data['data']['name']
+    print('Received user info: ' + str(userID) + ' - ' + str(userName))
+    #Add user to database if new
+    # ...
+
+    return '[S]User info received: ' + str(userID) + ' - ' + 'str(userName)'
+
 @server.route('/sendLocation', methods=['POST', 'OPTIONS'])
 @cross_origin()
 def getClientLocation():
