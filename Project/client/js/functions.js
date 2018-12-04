@@ -27,3 +27,9 @@ function successFunction(position) {
     url = serverURL + "/sendLocation";
     sendPostRequest(url, {'user': dummyID,'location': {'latitude':lat, 'longitude':long}});
 }
+
+//Send user data to add him to DB
+function addUserToDB(id , name) {
+    url = serverURL + "/sendUserInfo";
+    sendPostRequest(url, {'id': id,'name': name});
+}
