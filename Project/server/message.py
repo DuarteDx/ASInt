@@ -1,13 +1,10 @@
 class message:
-    def __init__(self, id_, time, latitude, longitude, rang, building, senderID, content):
-        self.id = id_
-        self.time = time
+    def __init__(self, senderID, latitude, longitude, rang, content):
+        self.senderID = senderID
         self.latitude = latitude
         self.longitude = longitude
         self.range = rang
-        self.building = building
-        self.senderID = senderID
         self.content = content
 
     def __str__(self):
-        return "%d - %s - %s - %s\n%s" % (self.id, self.time, self.building, self.senderID, self.content)
+        return "%s - %f - %f - %d:\n%s\n" % (self.senderID, self.latitude, self.longitude, self.range, self.content)

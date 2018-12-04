@@ -10,6 +10,12 @@ class user:
         self.lastUpdate = time.time()
         self.locationHistory = list()
         self.locationHistory.append((latitude,longitude))
+        self.messageQueue = list()
+        # o prof escreveu:
+        # pubsub.send(msg, topic=dest) para o caso de publish-subscribe
+
+    def addMessageToQueue(self, sender, content):
+        self.messageQueue.append((sender, content))
 
     def updateLocation(self, latitude, longitude):
         self.latitude = latitude

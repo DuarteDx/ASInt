@@ -30,7 +30,7 @@ def getClientInfo():
     userName = data['data']['name']
     print('Received user info: ' + str(userID) + ' - ' + str(userName))
     #Add user to database if new
-    # ...
+    db.addUser(userID, userName)
 
     return '[S]User info received: ' + str(userID) + ' - ' + 'str(userName)'
 
@@ -93,7 +93,7 @@ def getPeopleInRange():
     print('User ' + str(userID) + ' requested list of nearby users')
 
     #Get nearby users from database
-    #nearbyUsersList = ...
+    #nearbyUsersList = getUsersInRange(lat, lon, rang)
 
     #return nearbyUsersList
     return '[S]1'

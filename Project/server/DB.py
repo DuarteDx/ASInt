@@ -20,16 +20,24 @@ class DB:
         build = building(id_, name, latitude, longitude)
         self.buildings[build.id] = build
 
-    def addMessage(self, id_, time_, latitude, longitude, rang, building, senderID, content):
-        mess = message(id_, time_, latitude, longitude, rang, building, senderID, content)
+    def addMessage(self, senderID, content):
+        latitude, longitude, rang = self.getUserLocation(senderID)
+        mess = message(senderID, latitude, longitude, rang, content)
         self.messages.append(mess)
 
-    def addUser(self, userID, name, latitude, longitude, rang):
+    def addUser(self, userID, name, latitude=0, longitude=0, rang=10):
         if userID not in self.users.keys():
             new_user = user(userID, name, latitude, longitude, rang)
-            self.users[userID] = new_user
-        else:
-            self.updateUser(userID, latitude, longitude, rang)                
+            self.users[userID] = new_user               
+
+    def getUserLocation(self, userID):
+        la = self.users[userID].latitude
+        lo = self.users[userID].longitude
+        ra = self.users[userID].range
+        return la, lo, ra
+
+    def getUserHistory(self, userID):
+        return self.users[userID].locationHistory
 
     def getMessagesFromUser(self, userID):
         mList = list()
