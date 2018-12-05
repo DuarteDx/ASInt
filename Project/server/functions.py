@@ -9,11 +9,4 @@ def getDistanceBetween2Points(lat1, lon1, lat2, lon2):
     a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
     c = 2 * atan2(sqrt(a), sqrt(1 - a))
     return R * c
-
-def getUsersInRange(db, lat, lon, rang):
-    usersInRange = list()
-    for userID in db.users.keys():
-        userLat, userLong = db.getUserLocation(userID)
-        if getDistanceBetween2Points(lat, lon, userLat, userLong) < rang:
-            usersInRange.append(userID, db.users[userID].name)
             

@@ -29,8 +29,8 @@ def getClientInfo():
     userID = data['data']['id']
     userName = data['data']['name']
     print('Received user info: ' + str(userID) + ' - ' + str(userName))
-    #Add user to database if new
-    db.addUser(userID, userName)
+    #Add user to database if new    
+    db.addUser(int(userID), userName)
 
     return '[S]User info received: ' + str(userID) + ' - ' + 'str(userName)'
 
@@ -85,6 +85,7 @@ def broadcastClientMessage():
 @cross_origin()
 def getPeopleInRange():
     #Send a list of nearby users to client
+    nearbyUsersList = list()
 
     #Get data from client
     data = request.get_json(silent=True)
@@ -93,10 +94,10 @@ def getPeopleInRange():
     print('User ' + str(userID) + ' requested list of nearby users')
 
     #Get nearby users from database
-    #nearbyUsersList = getUsersInRange(lat, lon, rang)
+    nearbyUsersList = db.getUsersInRange(userID)
 
-    #return nearbyUsersList
-    return '[S]1'
+    #TODO: Convert list to json and send back to client (or send it in another way)
+    return '[S] Nearby users:' + str(nearbyUsersList)
 
 @server.route('/getUserMessages', methods=['POST', 'OPTIONS'])
 @cross_origin()
