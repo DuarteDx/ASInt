@@ -58,9 +58,10 @@ class DB:
         lat, lon, rang = self.getUserLocation(senderID)
         usersInRange = list()
         for userID in self.users.keys():
-            userLat, userLong, r_ = self.getUserLocation(userID)
-            if functions.getDistanceBetween2Points(lat, lon, userLat, userLong) < rang:
-                usersInRange.append((userID, self.users[userID].name))
+            userLat, userLong, _ = self.getUserLocation(userID)
+            if functions.getDistanceBetween2Points(lat, lon, userLat, userLong) < float(rang):
+                usersInRange.append({'id':userID, 'userName':self.users[userID].name})
+
         return usersInRange
 
     def getUserHistory(self, userID):

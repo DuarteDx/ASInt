@@ -97,7 +97,7 @@ def getPeopleInRange():
     nearbyUsersList = db.getUsersInRange(userID)
 
     #TODO: Convert list to json and send back to client (or send it in another way)
-    return '[S] Nearby users:' + str(nearbyUsersList)
+    return jsonify(nearbyUsersList)
 
 @server.route('/getUserMessages', methods=['POST', 'OPTIONS'])
 @cross_origin()
