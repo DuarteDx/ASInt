@@ -1,7 +1,7 @@
-function sendPostRequest(url, data) {
+function sendPostRequest(url, data, callbackVariable) {
     console.log('Starting ajax post request');
 
-    axios.post(url, {
+    return axios.post(url, {
         data,
         headers: {
             "Access-Control-Allow-Origin": "localhost"
@@ -12,9 +12,11 @@ function sendPostRequest(url, data) {
             //console.log(response);
             console.log('[C]Server response:');
             console.log(response.data);
+            return response.data;
         })
         .catch(function (error) {
             console.log(error);
+            return 'An error occorred: ' + error;
         })
 }
 
@@ -33,3 +35,7 @@ function addUserToDB(id , name) {
     url = serverURL + "/sendUserInfo";
     sendPostRequest(url, {'id': id,'name': name});
 }
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
