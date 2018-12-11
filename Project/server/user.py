@@ -1,6 +1,7 @@
 import time
+from flask import jsonify
 
-class user:
+class User:
     def __init__(self, userID, name, latitude, longitude, rang):
         self.id = userID
         self.name = name
@@ -14,8 +15,11 @@ class user:
         # o prof escreveu:
         # pubsub.send(msg, topic=dest) para o caso de publish-subscribe
 
-    def addMessageToQueue(self, sender, content):
-        self.messageQueue.append((sender, content))
+    def addMessageToQueue(self, senderID, senderName, content):
+        self.messageQueue.append({'senderID':senderID, 'name':senderName, 'content':content})
+
+    def readMessages(self):
+        return jsonify(self.messageQueue)
 
     def updateLocation(self, latitude, longitude):
         self.latitude = latitude

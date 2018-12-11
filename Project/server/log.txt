@@ -1,0 +1,7 @@
+logs
+
+
+user|building|(tipo)|dados
+------------------------~
+jj  | norte  | entrou
+jj  | norte  | "ola"

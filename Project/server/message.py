@@ -1,4 +1,4 @@
-class message:
+class Message:
     def __init__(self, senderID, latitude, longitude, rang, content):
         self.senderID = senderID
         self.latitude = latitude

@@ -1,4 +1,12 @@
+import DB, User, Message
 from math import sin, cos, sqrt, atan2, radians
+
+def broadcastMessage(db, senderID, name, content):
+    message = db.addMessage(senderID, content)
+    nearbyUsers = db.getUsersInRange(senderID)
+    for user in nearbyUsers:
+        db.sendMessage(senderID, name, user["id"], content)
+
 
 
 def getDistanceBetween2Points(lat1, lon1, lat2, lon2):

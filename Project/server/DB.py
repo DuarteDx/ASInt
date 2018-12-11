@@ -1,7 +1,7 @@
 import pickle
-from building import building
-from message import message
-from user import user
+from Building import Building
+from Message import Message
+from User import User
 import functions
 
 class DB:
@@ -26,7 +26,7 @@ class DB:
             self.messages = list()
 
     def addBuilding(self, id_, name, latitude, longitude):
-        build = building(id_, name, latitude, longitude)
+        build = Building(id_, name, latitude, longitude)
         self.buildings[build.id] = build
         f = open('buildings_dump', 'wb')
         pickle.dump(self.buildings, f)
@@ -34,15 +34,21 @@ class DB:
 
     def addMessage(self, senderID, content):
         latitude, longitude, rang = self.getUserLocation(senderID)
-        mess = message(senderID, latitude, longitude, rang, content)
+        mess = Message(senderID, latitude, longitude, rang, content)
         self.messages.append(mess)
         f = open('messages_dump', 'wb')
         pickle.dump(self.messages, f)
-        f.close()               
+        f.close()
+        return mess      
+
+    def getNameFromID(self, userID):
+        if userID not in self.users.keys():
+            return
+        return self.users[userID].name         
 
     def addUser(self, userID, name, latitude=0, longitude=0, rang=10):
         if userID not in self.users.keys():
-            new_user = user(userID, name, latitude, longitude, rang)
+            new_user = User(userID, name, latitude, longitude, rang)
             self.users[userID] = new_user
             f = open('users_dump', 'wb')
             pickle.dump(self.users, f)
@@ -73,6 +79,10 @@ class DB:
             if m.senderID == userID:
                 mList.append(m)
         return mList
+
+    def sendMessage(self, senderID, senderName, receiverID, message):
+        self.users[receiverID].addMessageToQueue(senderID, senderName, message)
+
 
     def updateUser(self, userID, latitude=None, longitude=None, rang=None):
         if userID not in self.users.keys():

@@ -6,7 +6,7 @@ from flask_cors import CORS, cross_origin
 from DB import DB
 
 #Functions from functions.py
-import functions
+import functions as f
 
 server = Flask(__name__)
 db = DB()
@@ -77,7 +77,8 @@ def broadcastClientMessage():
     userMessage = data['data']['message']
     print('Message from ' + str(userID) + ': ' + str(userMessage))
     #Add message to database
-    db.addMessage(userID, userMessage)
+
+    f.broadcastMessage(db, userID, db.getNameFromID(userID), userMessage)
 
     return '[S]Message received from ' + str(userID) + ': ' + str(userMessage)
 
@@ -108,13 +109,12 @@ def getUserMessages():
     data = request.get_json(silent=True)
     #Parse response
     userID = data['data']['user'] 
+    userID = int(userID)
     print('User ' + str(userID) + ' requested his list of messages')
 
     #Get client's messages from database
-    #listOfMessages = ...
-
-    #return listOfMessages
-    return '[S]2'
+    listOfMessages = db.users[userID].readMessages()
+    return listOfMessages
 
 '''
 #################
