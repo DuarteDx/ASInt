@@ -1,4 +1,4 @@
-import DB, User, Message
+import DB, user, message
 from math import sin, cos, sqrt, atan2, radians
 
 def broadcastMessage(db, senderID, name, content):

@@ -1,7 +1,7 @@
 import pickle
-from Building import Building
-from Message import Message
-from User import User
+from building import Building
+from message import Message
+from user import User
 import functions
 
 class DB:
