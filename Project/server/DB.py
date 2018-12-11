@@ -1,4 +1,5 @@
 import pickle
+import time
 from building import Building
 from message import Message
 from user import User
@@ -24,6 +25,24 @@ class DB:
             f.close()
         except IOError:
             self.messages = list()
+        try:
+            f = open('logs.pkl', 'rb')
+            self.logs = pickle.load(f)
+            f.close()
+        except:
+            self.logs = list()
+
+    def addLog(self, userID, building, type_, data):
+        log = {'userID':userID, 'building':building, 'timestamp':time.time(), 'type':type_, 'data':data}
+        self.logs.append(log)
+
+    def retrieveLogs(self, userID = None, building = None):
+        logList = list()
+        for log in self.logs:
+            if (userID == None or log['userID'] == userID) and (building == None or log['building'] == building):
+                logList.append(log)
+
+        return logList
 
     def addBuilding(self, id_, name, latitude, longitude):
         build = Building(id_, name, latitude, longitude)
@@ -91,5 +110,6 @@ class DB:
 
         if latitude != None and longitude != None:
             self.users[userID].updateLocation(latitude, longitude)
+            # log if user changes building
         if rang != None:
             self.users[userID].updateRange(rang)

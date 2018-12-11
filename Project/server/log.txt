@@ -1,7 +1,7 @@
 logs
 
 
-user|building|(tipo)|dados
-------------------------~
-jj  | norte  | entrou
-jj  | norte  | "ola"
+user|building|timestamp|(tipo) |dados
+--------------------------------------
+00  | norte  |17:17:00 | move  | entrou
+01  | norte  |17:17:05 |message| "ola!"
