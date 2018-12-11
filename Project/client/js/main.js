@@ -64,14 +64,11 @@ var getNearbyUsers = new Vue({
     getListOfNearbyUsers() {
       //ToDo: Ajax code to get list of users
       url = serverURL + '/getPeopleInRange';
-      sendPostRequest(url, {'user':dummyID});
+      sendPostRequest(url, {'user':dummyID}, this.nearbyUsersList).then(data => this.nearbyUsersList = data);
       console.log('[C]Requested nearbyUsersList for ' + dummyID);
-
+      
       console.log('[C]get users button pressed');
-      this.nearbyUsersList = [{name: 'Lourenço Pato'},
-                              {name: 'José Peres'}, 
-                              {name: 'Francisco Azevedo'}
-                            ];
+      console.log(this.nearbyUsersList);
     }
   }
 })
@@ -85,11 +82,11 @@ var getMessages = new Vue({
     getListOfMessages() {
       //ToDo: Ajax code to get list of messages
       url = serverURL + '/getUserMessages';
-      sendPostRequest(url, {'user':dummyID});
+      sendPostRequest(url, {'user':dummyID}).then(data => this.messageList = data);
       console.log('[C]Requested list of messages for ' + dummyID);
 
       console.log('[C]get messages button pressed');
-      this.messageList = [{from: 'Duarte', content: 'Oi, tudo bem?'},
+      this.messageListDummy = [{from: 'Duarte', content: 'Oi, tudo bem?'},
                           {from: 'BotSDEEC', content: 'Não baloiçar nas cadeiras!'},
                           {from: 'ISTPress', content: 'Notícia de última hora: grupo de alunos sobredotados tiram 20 na cadeira de ASint!'}
                         ];

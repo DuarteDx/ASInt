@@ -40,7 +40,7 @@
     <div id="getNearbyUsers">
         <button v-on:click="getListOfNearbyUsers">Get nearby users</button>
         <li v-for="user in nearbyUsersList">
-            {{ user.name }}
+            {{ user.id }} - {{ user.userName }}
         </li>
     </div>
 
