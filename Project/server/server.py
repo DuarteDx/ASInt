@@ -32,7 +32,9 @@ def getClientInfo():
     #Add user to database if new    
     db.addUser(int(userID), userName)
 
-    return '[S]User info received: ' + str(userID) + ' - ' + 'str(userName)'
+    return '[S]User info received: ' + str(userID) + ' - ' + str(userName)
+
+
 
 @server.route('/sendLocation', methods=['POST', 'OPTIONS'])
 @cross_origin()
@@ -62,9 +64,12 @@ def getClientRange():
     #Parse response
     userID = data['data']['user']
     userRange = data['data']['range']
+    userRange = int(userRange)
     print('Received range from ' + str(userID) + ': ' + str(userRange))
     db.updateUser(userID, rang = userRange)
     return '[S]Range received from ' + str(userID) + ': ' + str(userRange)
+
+
 
 @server.route('/broadcastClientMessage', methods=['POST', 'OPTIONS'])
 @cross_origin()
@@ -82,23 +87,23 @@ def broadcastClientMessage():
 
     return '[S]Message received from ' + str(userID) + ': ' + str(userMessage)
 
+
+
 @server.route('/getPeopleInRange', methods=['POST', 'OPTIONS'])
 @cross_origin()
 def getPeopleInRange():
     #Send a list of nearby users to client
     nearbyUsersList = list()
-
     #Get data from client
     data = request.get_json(silent=True)
     #Parse response
     userID = data['data']['user']
     print('User ' + str(userID) + ' requested list of nearby users')
-
     #Get nearby users from database
     nearbyUsersList = db.getUsersInRange(userID)
-
-    #TODO: Convert list to json and send back to client (or send it in another way)
     return jsonify(nearbyUsersList)
+
+
 
 @server.route('/getUserMessages', methods=['POST', 'OPTIONS'])
 @cross_origin()
@@ -114,7 +119,7 @@ def getUserMessages():
 
     #Get client's messages from database
     listOfMessages = db.users[userID].readMessages()
-    return listOfMessages
+    return jsonify(listOfMessages)
 
 '''
 #################

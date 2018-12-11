@@ -65,7 +65,7 @@ class DB:
         usersInRange = list()
         for userID in self.users.keys():
             userLat, userLong, _ = self.getUserLocation(userID)
-            if functions.getDistanceBetween2Points(lat, lon, userLat, userLong) < float(rang):
+            if functions.getDistanceBetween2Points(lat, lon, userLat, userLong) < int(rang):
                 usersInRange.append({'id':userID, 'userName':self.users[userID].name})
 
         return usersInRange
@@ -92,4 +92,4 @@ class DB:
         if latitude != None and longitude != None:
             self.users[userID].updateLocation(latitude, longitude)
         if rang != None:
-            self.users[userID].updateRange(range)
+            self.users[userID].updateRange(rang)

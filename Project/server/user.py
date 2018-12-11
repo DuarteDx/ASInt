@@ -19,7 +19,7 @@ class User:
         self.messageQueue.append({'senderID':senderID, 'name':senderName, 'content':content})
 
     def readMessages(self):
-        return jsonify(self.messageQueue)
+        return self.messageQueue
 
     def updateLocation(self, latitude, longitude):
         self.latitude = latitude
@@ -28,7 +28,7 @@ class User:
         self.lastUpdate = time.time()
 
     def updateRange(self, rang):
-        self.range = rang
+        self.range = int(rang)
         self.lastUpdate = time.time()
 
     def __str__(self):
