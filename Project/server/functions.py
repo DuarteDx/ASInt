@@ -2,7 +2,8 @@ import DB, user, message
 from math import sin, cos, sqrt, atan2, radians
 
 def broadcastMessage(db, senderID, name, content):
-    message = db.addMessage(senderID, content)
+        #TODO: select building from user
+    db.addLog(senderID, "aa", "message", content)
     nearbyUsers = db.getUsersInRange(senderID)
     for user in nearbyUsers:
         db.sendMessage(senderID, name, user["id"], content)

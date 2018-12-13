@@ -36,6 +36,9 @@ class DB:
         log = {'userID':userID, 'building':building, 'timestamp':time.time(), 'type':type_, 'data':data}
         self.logs.append(log)
 
+    def printLogs(self):
+        print(self.logs)
+
     def retrieveLogs(self, userID = None, building = None):
         logList = list()
         for log in self.logs:
