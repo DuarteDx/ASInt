@@ -148,7 +148,8 @@ def addBuildingToDB():
 def getLoggedInUsers():
     #Send a list logged in users to admin
     print('Received admin request for logged users')
-    return jsonify(db.getAllUsers())
+    ret = {"userID": db.getAllUsers()}
+    return jsonify(ret)
 
 # 'buildingID' ~ or name
 @server.route('/getUsersInBuilding', methods=['POST', 'OPTIONS'])
@@ -160,7 +161,7 @@ def getUsersInBuilding():
     buildingID = data['buildingID']
     userList = db.buildings[buildingID].getUsersInside()
     # returns a list of user ID's
-    return jsonify(userID=userList)
+    return jsonify(userList)
 
 # 'UserID' or 'buildingID' or both
 @server.route('/getHistory', methods=['POST', 'OPTIONS'])
