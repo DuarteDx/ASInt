@@ -16,3 +16,9 @@ def addBuilding(buildingID, buildingName, latitude, longitude):
     data = {'buildingID':buildingID, 'buildingName':buildingName, 'latitude':latitude, 'longitude':longitude}
     print('Sending data: ' + str(data))
     makePostRequest(url, data)
+
+def listLoggedInUsersOption():
+    url = serverURL + '/addBuildingToDB'
+    print('Asking server for list of logged in users...')
+    response = makePostRequest(url, {})
+    print(response)
