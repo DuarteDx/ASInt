@@ -14,8 +14,6 @@ cors = CORS(server)
 server.config['CORS_HEADERS'] = 'Content-Type'
 
 
-#database = DB()
-
 ###################
 # CLIENT ENDPOINTS
 ###################
@@ -39,7 +37,8 @@ def getClientInfo():
 @server.route('/sendLocation', methods=['POST', 'OPTIONS'])
 @cross_origin()
 def getClientLocation():
-    #Get a location from a client and add it to database    
+    #Get a location from a client and add it to database   
+    # REDO to update logs and buildings 
     #Get data from client
     data = request.get_json(silent=True)
     #Parse response
@@ -144,21 +143,47 @@ def addBuildingToDB():
     return '[S]Received building ID ' + str(buildingID) + ': ' + buildingName
 
 
-@server.route('/getLoggedInUsers')
+@server.route('/getLoggedInUsers', methods=['POST', 'OPTIONS'])
+@cross_origin()
 def getLoggedInUsers():
     #Send a list logged in users to admin
-    pass
+    return jsonify(db.getAllUsers())
 
 # 'buildingID' ~ or name
-@server.route('/getUsersInBuilding')
+@server.route('/getUsersInBuilding', methods=['POST', 'OPTIONS'])
+@cross_origin()
 def getUsersInBuilding():
-    #Send a list of users in specific building
-    pass
+    #Send a list of users in specific building    
+    # #Get data from request
+    data = request.get_json(silent=True)
+    buildingID = data['data']['buildingID']
+    userList = db.buildings[buildingID].getUsersInside()
+    # returns a list of user ID's
+    return jsonify(userList)
 
 # 'UserID' or 'buildingID' or both
-@server.route('/getHistory')
+@server.route('/getHistory', methods=['POST', 'OPTIONS'])
+@cross_origin()
 def getUserHistory():
-    pass
+    # Get data from request
+    data = request.get_json(silent=True)
+    userID = data['data']['userID']
+    buildingID = data['data']['buildingID']
+
+    # Retrieve logs from database
+    if (userID != 'None' and buildingID != 'None'):
+        logs = db.retrieveLogs(userID, buildingID)
+    elif (userID != 'None' and buildingID == 'None'):
+        logs = db.retrieveLogs(userID)
+    elif (userID == 'None' and buildingID != 'None'):
+        logs = db.retrieveLogs(buildingID)
+    elif (userID == 'None' and buildingID == 'None'):
+        logs = db.retrieveLogs()
+    
+    return jsonify(logs)
+
+
+
 
 '''
 ###############
