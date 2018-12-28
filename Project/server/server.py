@@ -140,13 +140,14 @@ def addBuildingToDB():
     print('Received new building info: ID:' + str(buildingID) + ' name: ' + buildingName + ' latitude: ' + latitude + ' longitude: ' + longitude)
     db.addBuilding(buildingID, buildingName, latitude, longitude)
 
-    return '[S]Received building ID ' + str(buildingID) + ': ' + buildingName
+    return '[S]Received building ID ' + str(buildingID) + ' : ' + buildingName
 
 
-@server.route('/getLoggedInUsers', methods=['POST', 'OPTIONS'])
+@server.route('/getLoggedInUsers', methods=['GET'])
 @cross_origin()
 def getLoggedInUsers():
     #Send a list logged in users to admin
+    print('Received admin request for logged users')
     return jsonify(db.getAllUsers())
 
 # 'buildingID' ~ or name

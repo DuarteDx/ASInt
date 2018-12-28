@@ -75,9 +75,12 @@ class DB:
             pickle.dump(self.users, f)
             f.close()   
 
-    # returns list of all users
+    # returns list of all user IDs
     def getAllUsers(self):
-        return self.users
+        userList = list()
+        for usr in self.users:
+            userList.append(self.users[usr].id)
+        return userList
 
     def getUserLocation(self, userID):
         la = self.users[userID].latitude
