@@ -4,25 +4,29 @@ import ajaxFunctions
 def addBuildingOption():
     print('Press "q" at any moment to cancel')
 
-    #print('Insert single building or file?')
-    #ToDo: add option to add file
+    print('Insert single building(1) or file(2)?')
+    inputMethod = input('Insert number: ')
 
-    #Get parameters
-    buildingID = input('Building id: ')
-    if buildingID == 'q':
-        return 1
+    if inputMethod == 1:
+        #Get parameters
+        buildingID = input('Building id: ')
+        if buildingID == 'q':
+            return 1
 
-    buildingName = input('Building name: ')
-    if buildingName == 'q':
-        return 1
+        buildingName = input('Building name: ')
+        if buildingName == 'q':
+            return 1
 
-    latitude = input('Latitude of center of building: ')
-    if latitude == 'q':
-        return 1
+        latitude = input('Latitude of center of building: ')
+        if latitude == 'q':
+            return 1
 
-    longitude = input('Longitude of center of building: ')
-    if longitude == 'q':
-        return 1
+        longitude = input('Longitude of center of building: ')
+        if longitude == 'q':
+            return 1
+
+    #if inputMethod == 2:
+
 
     #Send new building data to server
     ajaxFunctions.addBuilding(buildingID, buildingName, latitude, longitude)
