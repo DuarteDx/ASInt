@@ -73,7 +73,11 @@ class DB:
             self.users[userID] = new_user
             f = open('users_dump', 'wb')
             pickle.dump(self.users, f)
-            f.close()               
+            f.close()   
+
+    # returns list of all users
+    def getAllUsers(self):
+        return self.users
 
     def getUserLocation(self, userID):
         la = self.users[userID].latitude
