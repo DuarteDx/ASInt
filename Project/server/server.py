@@ -160,7 +160,7 @@ def getUsersInBuilding():
     buildingID = data['buildingID']
     userList = db.buildings[buildingID].getUsersInside()
     # returns a list of user ID's
-    return jsonify(userList)
+    return jsonify(userID=userList)
 
 # 'UserID' or 'buildingID' or both
 @server.route('/getHistory', methods=['POST', 'OPTIONS'])
