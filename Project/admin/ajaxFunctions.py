@@ -8,7 +8,13 @@ def makePostRequest(url, data):
     S = requests.session()
     r = S.post(url, headers=headers, json=data)
     print(r.status_code, r.reason)
+    return r.content
+
+def makeGetRequest(url):
+    r = requests.get(url)
+    print(r.status_code, r.reason)
     return r
+
 
 def addBuilding(buildingID, buildingName, latitude, longitude):
     #Make ajax call to server
@@ -18,7 +24,8 @@ def addBuilding(buildingID, buildingName, latitude, longitude):
     makePostRequest(url, data)
 
 def listLoggedInUsersOption():
-    url = serverURL + '/addBuildingToDB'
+    url = serverURL + '/getLoggedInUsers'
     print('Asking server for list of logged in users...')
-    response = makePostRequest(url, {})
-    print(response)
+    response = makeGetRequest(url)
+    response = json.loads(response)
+    print(response.['userId'])

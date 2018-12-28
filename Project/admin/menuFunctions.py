@@ -45,7 +45,7 @@ def showMenu():
         addBuildingOption()
         return 1
     elif operation == '2':
-        listLoggedInUsersOption()
+        ajaxFunctions.listLoggedInUsersOption()
         return 2
     elif operation == '3':
         #listUsersByBuildinOption()
