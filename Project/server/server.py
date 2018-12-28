@@ -133,10 +133,10 @@ def addBuildingToDB():
     #Get a building information from an admin and add the building to the database
     #Get data from request
     data = request.get_json(silent=True)
-    buildingID = data['data']['buildingID'] 
-    buildingName = data['data']['buildingName'] 
-    latitude = data['data']['latitude'] 
-    longitude = data['data']['longitude'] 
+    buildingID = data['buildingID'] 
+    buildingName = data['buildingName'] 
+    latitude = data['latitude'] 
+    longitude = data['longitude'] 
     print('Received new building info: ID:' + str(buildingID) + ' name: ' + buildingName + ' latitude: ' + latitude + ' longitude: ' + longitude)
     db.addBuilding(buildingID, buildingName, latitude, longitude)
 
@@ -156,7 +156,7 @@ def getUsersInBuilding():
     #Send a list of users in specific building    
     # #Get data from request
     data = request.get_json(silent=True)
-    buildingID = data['data']['buildingID']
+    buildingID = data['buildingID']
     userList = db.buildings[buildingID].getUsersInside()
     # returns a list of user ID's
     return jsonify(userList)
@@ -167,8 +167,8 @@ def getUsersInBuilding():
 def getUserHistory():
     # Get data from request
     data = request.get_json(silent=True)
-    userID = data['data']['userID']
-    buildingID = data['data']['buildingID']
+    userID = data['userID']
+    buildingID = data['buildingID']
 
     # Retrieve logs from database
     if (userID != 'None' and buildingID != 'None'):
