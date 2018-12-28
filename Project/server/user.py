@@ -9,9 +9,8 @@ class User:
         self.longitude = longitude
         self.range = rang
         self.lastUpdate = time.time()
-        self.locationHistory = list()
-        self.locationHistory.append((latitude,longitude))
         self.messageQueue = list()
+        self.buildings = list()         # list of building IDs user is inside of
         # o prof escreveu:
         # pubsub.send(msg, topic=dest) para o caso de publish-subscribe
 
@@ -24,7 +23,6 @@ class User:
     def updateLocation(self, latitude, longitude):
         self.latitude = latitude
         self.longitude = longitude
-        self.locationHistory.append((latitude,longitude))
         self.lastUpdate = time.time()
 
     def updateRange(self, rang):
