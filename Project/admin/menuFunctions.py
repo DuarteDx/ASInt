@@ -4,26 +4,25 @@ import ajaxFunctions
 def addBuildingOption():
     print('Press "q" at any moment to cancel')
 
-    print('Insert single building(1) or file(2)?')
-    inputMethod = input('Insert number: ')
+    #print('Insert single building(1) or file(2)?')
+    #inputMethod = input('Insert number: ')
 
-    if inputMethod == 1:
-        #Get parameters
-        buildingID = input('Building id: ')
-        if buildingID == 'q':
-            return 1
+    #Get parameters
+    buildingID = input('Building id: ')
+    if buildingID == 'q':
+        return 1
 
-        buildingName = input('Building name: ')
-        if buildingName == 'q':
-            return 1
+    buildingName = input('Building name: ')
+    if buildingName == 'q':
+        return 1
 
-        latitude = input('Latitude of center of building: ')
-        if latitude == 'q':
-            return 1
+    latitude = input('Latitude of center of building: ')
+    if latitude == 'q':
+        return 1
 
-        longitude = input('Longitude of center of building: ')
-        if longitude == 'q':
-            return 1
+    longitude = input('Longitude of center of building: ')
+    if longitude == 'q':
+        return 1
 
     #if inputMethod == 2:
 
@@ -46,7 +45,7 @@ def showMenu():
         addBuildingOption()
         return 1
     elif operation == '2':
-        #listLoggedInUsersOption()
+        listLoggedInUsersOption()
         return 2
     elif operation == '3':
         #listUsersByBuildinOption()
@@ -59,8 +58,8 @@ def showMenu():
 
 def loadingAnimation():
     print('.')
-    time.sleep(1)
+    #time.sleep(1)
     print('..')
-    time.sleep(1)
+    #time.sleep(1)
     print('...')
-    time.sleep(1)
+    #time.sleep(1)
