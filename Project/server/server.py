@@ -121,32 +121,46 @@ def getUserMessages():
     listOfMessages = db.users[userID].readMessages()
     return jsonify(listOfMessages)
 
-'''
+
 #################
 # ADMIN ENDPOINTS
 #################
 
-@server.route('/addBuildingToDB')
-# atenção a segurança
+# Receives building information: 
+# 'buildingID', 'buildingName', 'latitude', 'longitude'
+@server.route('/addBuildingToDB', methods=['POST', 'OPTIONS'])
+@cross_origin()
 def addBuildingToDB():
     #Get a building information from an admin and add the building to the database
+    #Get data from request
+    data = request.get_json(silent=True)
+    buildingID = data['data']['buildingID'] 
+    buildingName = data['data']['buildingName'] 
+    latitude = data['data']['latitude'] 
+    longitude = data['data']['longitude'] 
+    print('Received new building info: ID:' + str(buildingID) + ' name: ' + buildingName + ' latitude: ' + latitude + ' longitude: ' + longitude)
+    db.addBuilding(buildingID, buildingName, latitude, longitude)
+
+    return '[S]Received building ID ' + str(buildingID) + ': ' + buildingName
+
 
 @server.route('/getLoggedInUsers')
 def getLoggedInUsers():
     #Send a list logged in users to admin
+    pass
 
-@server.route('/getPeopleByBuilding')
-def getPeopleByBuilding():
+# 'buildingID' ~ or name
+@server.route('/getUsersInBuilding')
+def getUsersInBuilding():
     #Send a list of users in specific building
+    pass
 
-@server.route('/getUserHistory')
+# 'UserID' or 'buildingID' or both
+@server.route('/getHistory')
 def getUserHistory():
-    #Send a list of exchanged messages and movements by users
+    pass
 
-@server.route('/getMessagesByBuilding')
-def getMessagesByBuilding():
-    #Send a list of messages all exchanged in a specific building
-
+'''
 ###############
 # BOT ENDPOINTS
 ###############

@@ -44,7 +44,6 @@ class DB:
         for log in self.logs:
             if (userID == None or log['userID'] == userID) and (building == None or log['building'] == building):
                 logList.append(log)
-
         return logList
 
     def addBuilding(self, id_, name, latitude, longitude):
