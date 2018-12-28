@@ -8,12 +8,13 @@ def makePostRequest(url, data):
     S = requests.session()
     r = S.post(url, headers=headers, json=data)
     print(r.status_code, r.reason)
-    return r.content
+    return r
 
 def makeGetRequest(url):
     r = requests.get(url)
-    print(r.status_code, r.reason)
-    return r
+    #print(r.status_code, r.reason)
+    #print(r.content)
+    return r.content
 
 
 def addBuilding(buildingID, buildingName, latitude, longitude):
@@ -28,4 +29,4 @@ def listLoggedInUsersOption():
     print('Asking server for list of logged in users...')
     response = makeGetRequest(url)
     response = json.loads(response)
-    print(response.['userId'])
+    print(response['userID'])
