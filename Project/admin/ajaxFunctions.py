@@ -5,7 +5,7 @@ serverURL = 'http://127.0.0.1:5000'
 
 def makePostRequest(url, data):
     headers = {'Content-Type': 'application/json'}
-    S = requests.session()
+    S = requests.session() # ToDo: test without this line (and edit next line)
     r = S.post(url, headers=headers, json=data)
     print(r.status_code, r.reason)
     return r
@@ -30,3 +30,17 @@ def listLoggedInUsersOption():
     response = makeGetRequest(url)
     response = json.loads(response)
     print(response['userID'])
+
+def getUsersInBuilding(buildingId):
+    url = serverURL + '/getUsersInBuilding'
+    print('Asking server for list of users in building...')
+    data = {'buildingID':buildingId}
+    response = makePostRequest(url, data)
+    return response
+
+def getHistory(userId, buildingId):
+    url = serverURL + '/getHistory'
+    print('Asking server for history...')
+    data = {'userID':userId, 'buildingID':buildingId}
+    response = makePostRequest(url, data)
+    return response

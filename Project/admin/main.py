@@ -10,9 +10,10 @@ while not loggedIn:
     menuFunctions.loadingAnimation()
 
     if username == "admin" and password == "123":
-        print("You are logged in!\n")
+        print("You are logged in!")
         loggedIn = True
     else:
         print("Ups, invalid credencials...\n")
 
-menuFunctions.showMenu()
+while True:
+    menuFunctions.showMenu()
