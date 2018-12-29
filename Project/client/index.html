@@ -9,46 +9,66 @@
 </head>
 <body>
 
-    <div id="sendLocation">
-        <button v-on:click="handleSubmit">Send location</button>
-        <p>Location has been sent <strong>{{ locationSentCounter }}</strong> times.</p>
-        <p>Last time sent: {{ locationSentLast }}</p>
+    <div class="leftPanel">
+
+        <div id="userInfo">
+            <h2>User</h2>
+            <h4>IST ID: {{ userId }}</h4>
+            <h4>Name: {{ userName }}</h4>
+        </div>
+
+        <div id="sendLocation">
+            <!--<button v-on:click="handleSubmit">Send location</button>-->
+            <p>Location has been sent <strong>{{ locationSentCounter }}</strong> times.</p>
+            <p>Last time sent: {{ locationSentLast }}</p>
+        </div>
+        
+        <div id="sendRange">
+            <form @submit.prevent="handleSubmit">
+                <label>
+                    <p>Max range (meters):</p>
+                    <input type="number" v-model="range">
+                    <br>
+                </label>
+                <button type="submit">Send range</button>
+            </form>
+        </div>
+
     </div>
 
-    <div id="sendRange">
-        <form @submit.prevent="handleSubmit">
-            <label>
-                <p>Max range (meters):</p>
-                <input type="number" v-model="range">
-                <br>
-            </label>
-            <button type="submit">Send range</button>
-        </form>
+    <div class="middlePanel">
+
+        <h2>Messages</h2>
+        <div id="sendMessage">
+            <form @submit.prevent="handleSubmit">
+                <label>
+                    <p>Send a message:</p>
+                    <input type="text" v-model="userMessage">
+                    <br>
+                </label>
+                <button type="submit">Send message</button>
+            </form>
+        </div>
+
+        <div id="getMessages">
+            <!--<button v-on:click="getListOfMessages">Get messages</button>-->
+            <li v-for="message in messageList">
+                <strong>{{message.name}}</strong>: {{ message.content }}
+            </li>
+        </div>
+
     </div>
 
-    <div id="sendMessage">
-        <form @submit.prevent="handleSubmit">
-            <label>
-                <p>Send a message:</p>
-                <input type="text" v-model="userMessage">
-                <br>
-            </label>
-            <button type="submit">Send message</button>
-        </form>
-    </div>
+    <div class="rightPanel">
 
-    <div id="getNearbyUsers">
-        <button v-on:click="getListOfNearbyUsers">Get nearby users</button>
-        <li v-for="user in nearbyUsersList">
-            {{ user.id }} - {{ user.userName }}
-        </li>
-    </div>
+        <div id="getNearbyUsers">
+            <!--<button v-on:click="getListOfNearbyUsers">Get nearby users</button>-->
+            <h2>Nearby Users</h2>
+            <li v-for="user in nearbyUsersList">
+                {{ user.id }} - {{ user.userName }}
+            </li>
+        </div>
 
-    <div id="getMessages">
-        <button v-on:click="getListOfMessages">Get messages</button>
-        <li v-for="message in messageList">
-            <strong>{{message.name}}</strong>: {{ message.content }}
-        </li>
     </div>
     
     <!--Axios Import-->

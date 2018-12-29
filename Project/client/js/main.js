@@ -7,6 +7,9 @@ var sendLocation = new Vue({
     locationSentCounter: 0,
     locationSentLast: 'nothing sent'
   },
+  created() {
+    this.interval = setInterval(this.handleSubmit, 2000)
+  },
   methods: {
     handleSubmit() {
       this.locationSentCounter += 1;
@@ -24,6 +27,16 @@ var sendLocation = new Vue({
       }
 
     }
+  }
+})
+
+var userInfo = new Vue({
+  el: '#userInfo',
+  data: {
+    userId: '81356',
+    userName: 'Lourenço Pato'
+  },
+  methods: {
   }
 })
 
@@ -60,6 +73,9 @@ var getNearbyUsers = new Vue({
   data: {
     nearbyUsersList: [],
   },
+  created() {
+    this.interval = setInterval(this.getListOfNearbyUsers, 2000)
+  },
   methods: {
     getListOfNearbyUsers() {
       //ToDo: Ajax code to get list of users
@@ -77,6 +93,9 @@ var getMessages = new Vue({
   el: '#getMessages',
   data: {
     messageList: [],
+  },
+  created() {
+    this.interval = setInterval(this.getListOfMessages, 2000)
   },
   methods: {
     getListOfMessages() {

@@ -47,44 +47,34 @@ li {
     margin-bottom: 10px;
 }
 
-#sendLocation {
-    flex-basis: 100%;
+.leftPanel {
+    flex-basis: 33%;
     margin-bottom: 30px;
 }
 
-#sendRange {
-    flex-basis: 100%;
+.middlePanel {
+    flex-basis: 33%;
     margin-bottom: 30px;
 }
 
-#sendRange form button {
-    margin-top: 10px;
-}
-
-#sendMessage {
-    flex-basis: 100%;
-    margin-bottom: 30px;
-}
-
-#sendMessage form button {
-    margin-top: 10px;
-}
-
-#getNearbyUsers {
-    flex-basis: 50%;
-    margin-bottom: 30px;
-}
-
-#getMessages {
-    flex-basis: 50%;
+.rightPanel {
+    flex-basis: 33%;
     margin-bottom: 30px;
 }
 
 @media (max-width: 750px) {
-    #getNearbyUsers {
+    .leftPanel {
         flex-basis: 100%;
+        margin-bottom: 30px;
     }
-    #getMessages {
+    
+    .middlePanel {
         flex-basis: 100%;
+        margin-bottom: 30px;
+    }
+    
+    .rightPanel {
+        flex-basis: 100%;
+        margin-bottom: 30px;
     }
 }
