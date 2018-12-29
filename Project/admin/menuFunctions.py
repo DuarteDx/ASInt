@@ -60,10 +60,10 @@ def listHistoryOption():
     userId = 'None'
     buildingId = 'None'
 
-    if option == 1 or option == 3:
+    if option == '1' or option == '3':
         userId = input('Insert user id: ')
 
-    if option == 2 or option == 3:
+    if option == '2' or option == '3':
         buildingId = input('Insert building id: ')
 
     historyList = ajaxFunctions.getHistory(userId, buildingId)
@@ -98,8 +98,8 @@ def showMenu():
 
 def loadingAnimation():
     print('.')
-    #time.sleep(1)
+    time.sleep(0.3)
     print('..')
-    #time.sleep(1)
+    time.sleep(0.3)
     print('...')
-    #time.sleep(1)
+    time.sleep(0.3)

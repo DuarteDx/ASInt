@@ -36,6 +36,7 @@ def getUsersInBuilding(buildingId):
     print('Asking server for list of users in building...')
     data = {'buildingID':buildingId}
     response = makePostRequest(url, data)
+    response = json.loads(response)
     return response
 
 def getHistory(userId, buildingId):
@@ -43,4 +44,5 @@ def getHistory(userId, buildingId):
     print('Asking server for history...')
     data = {'userID':userId, 'buildingID':buildingId}
     response = makePostRequest(url, data)
+    response = json.loads(response)
     return response
