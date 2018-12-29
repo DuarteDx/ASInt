@@ -1,7 +1,7 @@
 import requests
 import json
 
-serverURL = 'http://127.0.0.1:5000'
+serverURL = 'http://127.0.0.1:5000/admin'
 
 def makePostRequest(url, data):
     headers = {'Content-Type': 'application/json'}
