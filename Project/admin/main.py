@@ -1,19 +1,19 @@
 import menuFunctions
+import getpass
+from ajaxFunctions import adminLogin
 
 loggedIn = False
 
 while not loggedIn:
-
-    username = input("Username: ")
-    password = input("Password: ")
-
+    username = input("Username: ")  # admin
+    password = getpass.getpass('Password: ') # 123
     menuFunctions.loadingAnimation()
-
-    if username == "admin" and password == "123":
-        print("You are logged in!")
+    token = adminLogin(username, password)
+    if token:
+        print("Login successful!")
         loggedIn = True
     else:
-        print("Ups, invalid credencials...\n")
+        print("Login failed. Wrong credentials.")
 
 while True:
-    menuFunctions.showMenu()
+    menuFunctions.showMenu(token)

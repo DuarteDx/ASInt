@@ -27,13 +27,13 @@ def getClientInfo():
     #Get data from client
     data = request.get_json(silent=True)
     #Parse response
-    userID = data['data']['id']
+    userID = str(data['data']['id'])
     userName = data['data']['name']
-    print('Received user info: ' + str(userID) + ' - ' + str(userName))
+    print('Received user info: ' + userID + ' - ' + str(userName))
     #Add user to database if new    
-    db.addUser(int(userID), userName)
+    db.addUser(userID, userName)
 
-    return '[S]User info received: ' + str(userID) + ' - ' + str(userName)
+    return '[S]User info received: ' + userID + ' - ' + str(userName)
 
 
 
@@ -44,11 +44,11 @@ def getClientLocation():
     # Update logs and buildings 
     # Get data from client
     data = request.get_json(silent=True)
-    userID = data['data']['user']
+    userID = str(data['data']['user'])
     location = data['data']['location']
     latitude = location['latitude']
     longitude = location['longitude']
-    print('userID = ' + str(userID) + " Location: " +  str(latitude) + " : " + str(longitude))
+    #print('userID = ' + str(userID) + " Location: " +  str(latitude) + " : " + str(longitude))
 
     #Update user in database
     db.updateUser(userID, latitude=latitude, longitude=longitude)
@@ -63,7 +63,7 @@ def getClientRange():
     #Get data from client
     data = request.get_json(silent=True)
     #Parse response
-    userID = data['data']['user']
+    userID = str(data['data']['user'])
     userRange = data['data']['range']
     userRange = int(userRange)
     print('Received range from ' + str(userID) + ': ' + str(userRange))
@@ -79,7 +79,7 @@ def broadcastClientMessage():
     #Get data from client
     data = request.get_json(silent=True)
     #Parse response
-    userID = data['data']['user']
+    userID = str(data['data']['user'])
     userMessage = data['data']['message']
     print('Message from ' + str(userID) + ': ' + str(userMessage))
     #Add message to database
@@ -97,9 +97,7 @@ def getPeopleInRange():
     nearbyUsersList = list()
     #Get data from client
     data = request.get_json(silent=True)
-    #Parse response
-    userID = data['data']['user']
-    print('User ' + str(userID) + ' requested list of nearby users')
+    userID = str(data['data']['user'])
     #Get nearby users from database
     nearbyUsersList = db.getUsersInRange(userID)
     return jsonify(nearbyUsersList)
@@ -113,9 +111,8 @@ def getUserMessages():
     #Get data from request
     data = request.get_json(silent=True)
     #Parse response
-    userID = data['data']['user'] 
-    userID = int(userID)
-    print('User ' + str(userID) + ' requested his list of messages')
+    userID = str(data['data']['user'])
+    #print('User ' + str(userID) + ' requested his list of messages')
     #Get client's messages from database
     listOfMessages = db.users[userID].readMessages()
     return jsonify(listOfMessages)
@@ -186,7 +183,7 @@ def getUsersInBuilding():
 def getUserHistory():
     # Get data from request
     data = request.get_json(silent=True)
-    userID = data['userID']
+    userID = str(data['userID'])
     buildingID = data['buildingID']
     token = data['token']
 

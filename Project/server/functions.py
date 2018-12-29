@@ -9,7 +9,7 @@ def broadcastMessage(db, senderID, name, content):
         db.sendMessage(senderID, name, user["id"], content)
         # add message log to all buildings user is inside of 
         builds = db.getBuildingsFromUser(senderID)
-        if builds == None:
+        if not builds:
             db.addLog(senderID, "None", "message", content)
         else:
             for b in builds:

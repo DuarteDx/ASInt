@@ -2,9 +2,7 @@ import time
 import ajaxFunctions
 import csv
 
-def loginOption():
-    token = ajaxFunctions.adminLogin("admin", "123")
-    return token
+
 
 def addBuildingOption(token):
     print('Press "q" at any moment to cancel')
@@ -23,11 +21,11 @@ def addBuildingOption(token):
         if buildingName == 'q':
             return 1
 
-        latitude = input('Latitude of center of building: ')
+        latitude = input('Latitude: ')
         if latitude == 'q':
             return 1
 
-        longitude = input('Longitude of center of building: ')
+        longitude = input('Longitude: ')
         if longitude == 'q':
             return 1
 
@@ -42,23 +40,25 @@ def addBuildingOption(token):
             csv_reader = csv.reader(csv_file, delimiter=',')
             for row in csv_reader:
                 ajaxFunctions.addBuilding(row[0], row[1], row[2], row[3], token)
-    
-    return 1
+    else:
+        print("Wrong input method, should be 1 or 2")
+        addBuildingOption(token)
+    return
 
 def listUsersByBuildinOption(token):
     print('Insert building id')
     buildingId = input('Building id: ')
-
     usersList = ajaxFunctions.getUsersInBuilding(buildingId, token)
-
     # ToDo: Do some parsing to the usersList
-
-    print('Users in building with id ' + buildingId + ':')
-    for user in usersList:
-        print(user)
+    print('Users in building with id ' + buildingId + ' :')
+    if usersList:
+        for user in usersList:
+            print(user)
+    else:
+        print("none")
 
 def listHistoryOption(token):
-    print('Search by: user(1), building(2), user and building(3)')
+    print('Search by: user(1), building(2), user and building(3), any user or building(4)')
     option = input('Select a number: ')
 
     userId = 'None'
@@ -66,49 +66,40 @@ def listHistoryOption(token):
 
     if option == '1' or option == '3':
         userId = input('Insert user id: ')
-
     if option == '2' or option == '3':
         buildingId = input('Insert building id: ')
-
-    historyList = ajaxFunctions.getHistory(userId, buildingId, token)
-
-    print('\nServer history:')
-    for log in historyList:
+    logs = ajaxFunctions.getHistory(userId, buildingId, token)
+    print('\nServer logs:')
+    for log in logs:
         print(log)
 
-def showMenu():
-    token = None
+def showMenu(token):
     print('\nSelect an operation (write number)')
-    print('0 - Login to server')
     print('1 - Add building')
     print('2 - List currently logged in users')
     print('3 - List users inside a certain building')
     print('4 - List history by user or building')
+    print('exit - Close app')
 
     operation = input('>')
 
-    if operation == '0':
-        token = loginOption()
-        return 0
-    elif operation == '1':
+    if operation == '1':
         addBuildingOption(token)
-        return 1
     elif operation == '2':
         ajaxFunctions.listLoggedInUsersOption(token)
-        return 2
     elif operation == '3':
         listUsersByBuildinOption(token)
-        return 3
     elif operation == '4':
         listHistoryOption(token)
-        return 4
+    elif operation.lower() == 'exit' or operation == 'q':
+        quit()
     else:
         print('Invalid input, try again!')
 
 def loadingAnimation():
     print('.')
-    time.sleep(0.3)
+    time.sleep(0.1)
     print('..')
-    time.sleep(0.3)
+    time.sleep(0.1)
     print('...')
-    time.sleep(0.3)
+    time.sleep(0.1)

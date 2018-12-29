@@ -109,7 +109,7 @@ class DB:
     # adds new building to DB
     def addBuilding(self, id_, name, latitude, longitude):
         if id_ not in self.buildings:
-            build = Building(id_, name, latitude, longitude)
+            build = Building(id_, name, float(latitude), float(longitude))
             self.buildings[build.id] = build
             f = open('buildings_dump', 'wb')
             pickle.dump(self.buildings, f)
