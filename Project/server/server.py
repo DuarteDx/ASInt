@@ -37,20 +37,19 @@ def getClientInfo():
 @server.route('/sendLocation', methods=['POST', 'OPTIONS'])
 @cross_origin()
 def getClientLocation():
-    #Get a location from a client and add it to database   
-    # REDO to update logs and buildings 
-    #Get data from client
+    # Get a location from a client and add it to database   
+    # Update logs and buildings 
+    # Get data from client
     data = request.get_json(silent=True)
-    #Parse response
     userID = data['data']['user']
     location = data['data']['location']
     latitude = location['latitude']
     longitude = location['longitude']
-    print(userID)
-    print(location)    
+    print('userID = ' + str(userID) + " Location: " +  str(latitude) + " : " + str(longitude))
+
     #Update user in database
     db.updateUser(userID, latitude=latitude, longitude=longitude)
-    #print(userLocations)
+
     return '[S]Location received: ' + str(latitude) + '  ' + str(longitude) + ' by id: ' + str(userID)
 
 
@@ -137,7 +136,7 @@ def addBuildingToDB():
     buildingName = data['buildingName'] 
     latitude = data['latitude'] 
     longitude = data['longitude'] 
-    print('Received new building info: ID:' + str(buildingID) + ' name: ' + buildingName + ' latitude: ' + latitude + ' longitude: ' + longitude)
+    print('Received new building info: ID: ' + str(buildingID) + ' name: ' + buildingName + ' latitude: ' + str(latitude) + ' longitude: ' + str(longitude))
     db.addBuilding(buildingID, buildingName, latitude, longitude)
 
     return '[S]Received building ID ' + str(buildingID) + ' : ' + buildingName
@@ -152,19 +151,19 @@ def getLoggedInUsers():
     return jsonify(ret)
 
 # 'buildingID' ~ or name
-@server.route('/getUsersInBuilding', methods=['POST', 'OPTIONS'])
+@server.route('/getUsersInBuilding', methods=['POST'])
 @cross_origin()
 def getUsersInBuilding():
     #Send a list of users in specific building    
-    # #Get data from request
+    #Get data from request
     data = request.get_json(silent=True)
-    buildingID = data['buildingID']
-    userList = db.buildings[buildingID].getUsersInside()
+    buildingID = data['buildingID']    
+    userList = f.getUsersInBuilding(db, buildingID)
     # returns a list of user ID's
     return jsonify(userList)
 
 # 'UserID' or 'buildingID' or both
-@server.route('/getHistory', methods=['POST', 'OPTIONS'])
+@server.route('/getHistory', methods=['POST'])
 @cross_origin()
 def getUserHistory():
     # Get data from request
@@ -181,10 +180,7 @@ def getUserHistory():
         logs = db.retrieveLogs(buildingID)
     elif (userID == 'None' and buildingID == 'None'):
         logs = db.retrieveLogs()
-    
     return jsonify(logs)
-
-
 
 
 '''
