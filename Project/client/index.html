@@ -80,9 +80,29 @@
     <!-- Local Javascript files import-->
     <script src="js/functions.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/authFunctions.js"></script>
 
     <!-- Add user to DB -->
-    <script>addUserToDB('81356', 'Lourenço Pato');</script>
+    <script>//addUserToDB('81356', 'Lourenço Pato');</script>
+    <script>//console.log(sendGetRequestAxios('https://fenix.tecnico.ulisboa.pt/api/fenix/v1/person'));</script>
+    <script>
+        var authCode = getAuthCode();
+        getTokens(authCode).then(data => {
+            var accessToken = data['access_token'];
+            var refreshToken = data['refresh_token'];
+            console.log(accessToken);
+            console.log(refreshToken);
+            getUserInfo(accessToken, refreshToken).then(userData => {
+                var userName = userData['name'];
+                userName = userName.split(' ');
+                userName = userName[0] + ' ' + userName[userName.length-1];
+                var userId = userData['username'];
+                console.log('Username: ' + userName);
+                console.log('User id: ' + userId);
+            });
+        });
+
+    </script>
     
 </body>
 </html>

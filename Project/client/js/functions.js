@@ -1,10 +1,10 @@
-function sendPostRequest(url, data, callbackVariable) {
+function sendPostRequest(url, data) {
     console.log('Starting ajax post request');
 
     return axios.post(url, {
         data,
         headers: {
-            "Access-Control-Allow-Origin": "localhost"
+            "Access-Control-Allow-Origin": "*"
         },
         responseType: 'json'
     })
@@ -18,6 +18,29 @@ function sendPostRequest(url, data, callbackVariable) {
             console.log(error);
             return 'An error occorred: ' + error;
         })
+}
+
+
+
+function sendGetRequestAxios(url) {
+    console.log('Starting ajax get request for: ' + url);
+
+    // Using a cors proxy to avoid cors block
+    url = 'https://cors-anywhere.herokuapp.com/' + url;
+
+    axios.get(url, {
+        headers: {
+            "Access-Control-Allow-Origin": '*'
+        },
+        responseType: 'json'
+    })
+      .then(function (response) {
+        console.log(response.data);
+        return response.data
+      })
+      .catch(function (error) {
+        console.log(error);
+      }) 
 }
 
 //Get latitute & longitude

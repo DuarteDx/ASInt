@@ -8,7 +8,7 @@ var sendLocation = new Vue({
     locationSentLast: 'nothing sent'
   },
   created() {
-    this.interval = setInterval(this.handleSubmit, 2000)
+    //this.interval = setInterval(this.handleSubmit, 2000)
   },
   methods: {
     handleSubmit() {
@@ -74,7 +74,7 @@ var getNearbyUsers = new Vue({
     nearbyUsersList: [],
   },
   created() {
-    this.interval = setInterval(this.getListOfNearbyUsers, 2000)
+    //this.interval = setInterval(this.getListOfNearbyUsers, 2000)
   },
   methods: {
     getListOfNearbyUsers() {
@@ -95,7 +95,7 @@ var getMessages = new Vue({
     messageList: [],
   },
   created() {
-    this.interval = setInterval(this.getListOfMessages, 2000)
+    //this.interval = setInterval(this.getListOfMessages, 2000)
   },
   methods: {
     getListOfMessages() {
