@@ -18,6 +18,8 @@ def broadcastMessage(db, senderID, name, content):
 # returns the list of user IDs that are inside buildingID
 def getUsersInBuilding(db, buildingID):
     userList = list()
+    if buildingID not in db.buildings:
+        return None
     for user in db.users:           # check every user
         if buildingID in db.getBuildingsFromUser(user):       # check if user is inside buildingID
             if user not in userList:     # check if user already in the list

@@ -2,7 +2,11 @@ import time
 import ajaxFunctions
 import csv
 
-def addBuildingOption():
+def loginOption():
+    token = ajaxFunctions.adminLogin("admin", "123")
+    return token
+
+def addBuildingOption(token):
     print('Press "q" at any moment to cancel')
 
     print('Insert single building(1) or file(2)?')
@@ -28,7 +32,7 @@ def addBuildingOption():
             return 1
 
         #Send new building data to server
-        ajaxFunctions.addBuilding(buildingID, buildingName, latitude, longitude)
+        ajaxFunctions.addBuilding(buildingID, buildingName, latitude, longitude, token)
 
     # Import multiple buildings from file in csv format
     elif inputMethod == '2':
@@ -37,15 +41,15 @@ def addBuildingOption():
         with open(filepath) as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
             for row in csv_reader:
-                ajaxFunctions.addBuilding(row[0], row[1], row[2], row[3])
+                ajaxFunctions.addBuilding(row[0], row[1], row[2], row[3], token)
     
     return 1
 
-def listUsersByBuildinOption():
+def listUsersByBuildinOption(token):
     print('Insert building id')
     buildingId = input('Building id: ')
 
-    usersList = ajaxFunctions.getUsersInBuilding(buildingId)
+    usersList = ajaxFunctions.getUsersInBuilding(buildingId, token)
 
     # ToDo: Do some parsing to the usersList
 
@@ -53,7 +57,7 @@ def listUsersByBuildinOption():
     for user in usersList:
         print(user)
 
-def listHistoryOption():
+def listHistoryOption(token):
     print('Search by: user(1), building(2), user and building(3)')
     option = input('Select a number: ')
 
@@ -66,14 +70,16 @@ def listHistoryOption():
     if option == '2' or option == '3':
         buildingId = input('Insert building id: ')
 
-    historyList = ajaxFunctions.getHistory(userId, buildingId)
+    historyList = ajaxFunctions.getHistory(userId, buildingId, token)
 
     print('\nServer history:')
     for log in historyList:
         print(log)
 
 def showMenu():
+    token = None
     print('\nSelect an operation (write number)')
+    print('0 - Login to server')
     print('1 - Add building')
     print('2 - List currently logged in users')
     print('3 - List users inside a certain building')
@@ -81,17 +87,20 @@ def showMenu():
 
     operation = input('>')
 
-    if operation == '1':
-        addBuildingOption()
+    if operation == '0':
+        token = loginOption()
+        return 0
+    elif operation == '1':
+        addBuildingOption(token)
         return 1
     elif operation == '2':
-        ajaxFunctions.listLoggedInUsersOption()
+        ajaxFunctions.listLoggedInUsersOption(token)
         return 2
     elif operation == '3':
-        listUsersByBuildinOption()
+        listUsersByBuildinOption(token)
         return 3
     elif operation == '4':
-        listHistoryOption()
+        listHistoryOption(token)
         return 4
     else:
         print('Invalid input, try again!')

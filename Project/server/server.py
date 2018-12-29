@@ -2,16 +2,19 @@ from flask import Flask
 from flask import redirect
 from flask import request
 from flask import jsonify
+from flask import abort
 from flask_cors import CORS, cross_origin
 from DB import DB
 
 #Functions from functions.py
 import functions as f
+import auth
 
 server = Flask(__name__)
 db = DB()
 cors = CORS(server)
 server.config['CORS_HEADERS'] = 'Content-Type'
+
 
 
 ###################
@@ -107,14 +110,12 @@ def getPeopleInRange():
 @cross_origin()
 def getUserMessages():
     #Sends a list of messages to client
-
-    #Get data from client
+    #Get data from request
     data = request.get_json(silent=True)
     #Parse response
     userID = data['data']['user'] 
     userID = int(userID)
     print('User ' + str(userID) + ' requested his list of messages')
-
     #Get client's messages from database
     listOfMessages = db.users[userID].readMessages()
     return jsonify(listOfMessages)
@@ -124,63 +125,83 @@ def getUserMessages():
 # ADMIN ENDPOINTS
 #################
 
+# Admin login
+@server.route('/admin/login', methods=['POST'])
+@cross_origin()
+def adminLogin():
+    data = request.get_json(silent=True)
+    username = data['user'] 
+    password = data['password'] 
+    if username is None or password is None:
+        abort(400, 'Missing username or password') # missing arguments
+    if username in auth.admins.keys():
+        if auth.verifyPassword(password, auth.admins[username]):
+            return jsonify({"sessionToken": auth.generateToken()})
+    return '[S] Wrong password or username'
+
 # Receives building information: 
 # 'buildingID', 'buildingName', 'latitude', 'longitude'
-@server.route('/addBuildingToDB', methods=['POST', 'OPTIONS'])
+@server.route('/admin/addBuildingToDB', methods=['POST', 'OPTIONS'])
 @cross_origin()
+# Receive building info from an admin and add to database
 def addBuildingToDB():
-    #Get a building information from an admin and add the building to the database
-    #Get data from request
     data = request.get_json(silent=True)
     buildingID = data['buildingID'] 
     buildingName = data['buildingName'] 
     latitude = data['latitude'] 
     longitude = data['longitude'] 
-    print('Received new building info: ID: ' + str(buildingID) + ' name: ' + buildingName + ' latitude: ' + str(latitude) + ' longitude: ' + str(longitude))
-    db.addBuilding(buildingID, buildingName, latitude, longitude)
+    token = data['token']   
+    if auth.checkToken(token):
+        print('Received new building info: ID: ' + str(buildingID) + ' name: ' + buildingName + ' latitude: ' + str(latitude) + ' longitude: ' + str(longitude))
+        db.addBuilding(buildingID, buildingName, latitude, longitude)
+        return '[S] Received building ID ' + str(buildingID) + ' : ' + buildingName
+    return '[S] Wrong session token'
 
-    return '[S]Received building ID ' + str(buildingID) + ' : ' + buildingName
 
-
-@server.route('/getLoggedInUsers', methods=['GET'])
+@server.route('/admin/getLoggedInUsers', methods=['POST'])
 @cross_origin()
+#Send a list logged in users to admin
 def getLoggedInUsers():
-    #Send a list logged in users to admin
-    print('Received admin request for logged users')
-    ret = {"userID": db.getAllUsers()}
-    return jsonify(ret)
+    data = request.get_json(silent=True)
+    token = data['token']    
+    if auth.checkToken(token):
+        return jsonify({"userID": db.getAllUsers()})
+    return '[S] Wrong token'
 
-# 'buildingID' ~ or name
-@server.route('/getUsersInBuilding', methods=['POST'])
+@server.route('/admin/getUsersInBuilding', methods=['POST', 'OPTIONS'])
 @cross_origin()
+#Send a list of users in specific building    
 def getUsersInBuilding():
-    #Send a list of users in specific building    
-    #Get data from request
     data = request.get_json(silent=True)
     buildingID = data['buildingID']    
-    userList = f.getUsersInBuilding(db, buildingID)
-    # returns a list of user ID's
-    return jsonify(userList)
+    token = data['token']    
+    if auth.checkToken(token):
+        userList = f.getUsersInBuilding(db, buildingID)        
+        return jsonify(userList)        # returns a list of user ID's
+    return '[S] Wrong token'
 
 # 'UserID' or 'buildingID' or both
-@server.route('/getHistory', methods=['POST'])
+@server.route('/admin/getHistory', methods=['POST'])
 @cross_origin()
 def getUserHistory():
     # Get data from request
     data = request.get_json(silent=True)
     userID = data['userID']
     buildingID = data['buildingID']
+    token = data['token']
 
-    # Retrieve logs from database
-    if (userID != 'None' and buildingID != 'None'):
-        logs = db.retrieveLogs(userID, buildingID)
-    elif (userID != 'None' and buildingID == 'None'):
-        logs = db.retrieveLogs(userID)
-    elif (userID == 'None' and buildingID != 'None'):
-        logs = db.retrieveLogs(buildingID)
-    elif (userID == 'None' and buildingID == 'None'):
-        logs = db.retrieveLogs()
-    return jsonify(logs)
+    if auth.checkToken(token):
+        # Retrieve logs from database
+        if (userID != 'None' and buildingID != 'None'):
+            logs = db.retrieveLogs(userID, buildingID)
+        elif (userID != 'None' and buildingID == 'None'):
+            logs = db.retrieveLogs(userID)
+        elif (userID == 'None' and buildingID != 'None'):
+            logs = db.retrieveLogs(buildingID)
+        elif (userID == 'None' and buildingID == 'None'):
+            logs = db.retrieveLogs()
+        return jsonify(logs)
+    return '[S] Wrong access token'
 
 
 '''
