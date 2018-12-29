@@ -3,18 +3,23 @@ from math import sin, cos, sqrt, atan2, radians
 
 # sends a message to all users inside the range of sender
 def broadcastMessage(db, senderID, name, content):
-    db.addLog(senderID, "aa", "message", content)
+    # db.addLog(senderID, "aa", "message", content)
     nearbyUsers = db.getUsersInRange(senderID)
     for user in nearbyUsers:
         db.sendMessage(senderID, name, user["id"], content)
         # add message log to all buildings user is inside of 
         builds = db.getBuildingsFromUser(senderID)
-        for b in builds:
-            db.addLog(senderID, b, "message", content)
+        if not builds:
+            db.addLog(senderID, "None", "message", content)
+        else:
+            for b in builds:
+                db.addLog(senderID, b, "message", content)
 
 # returns the list of user IDs that are inside buildingID
 def getUsersInBuilding(db, buildingID):
     userList = list()
+    if buildingID not in db.buildings:
+        return None
     for user in db.users:           # check every user
         if buildingID in db.getBuildingsFromUser(user):       # check if user is inside buildingID
             if user not in userList:     # check if user already in the list

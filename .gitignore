@@ -1,2 +1,4 @@
 
 *.pyc
+
+Project/server/__pycache__/
