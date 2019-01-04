@@ -6,7 +6,7 @@ def broadcastMessage(db, senderID, name, content):
     # db.addLog(senderID, "aa", "message", content)
     nearbyUsers = db.getUsersInRange(senderID)
     for user in nearbyUsers:
-        db.sendMessage(senderID, name, user["id"], content)
+        db.sendMessage(name, user["id"], content)
         # add message log to all buildings user is inside of 
         builds = db.getBuildingsFromUser(senderID)
         if not builds:
@@ -15,8 +15,19 @@ def broadcastMessage(db, senderID, name, content):
             for b in builds:
                 db.addLog(senderID, b, "message", content)
 
+# send message from bot to all users inside its building
+def broadcastBotMessage(db, botName, content):
+    buildingID = db.getBuildingFromBot(botName)
+    recipients = getUsersInBuilding(db, buildingID)
+    if recipients:
+        for recv in recipients:
+            db.sendMessage(botName, recv["id"], content)
+            db.addLog(botName, buildingID, content)
+
+
 # returns the list of user IDs that are inside buildingID
 def getUsersInBuilding(db, buildingID):
+    # TODO add list of users to each building and return it here
     userList = list()
     if buildingID not in db.buildings:
         return None

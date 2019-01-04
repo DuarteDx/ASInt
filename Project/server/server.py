@@ -201,14 +201,31 @@ def getUserHistory():
     return '[S] Wrong access token'
 
 
-'''
 ###############
 # BOT ENDPOINTS
 ###############
 
-@server.route('/broadcastBotMessage')
+@server.route('/bot/register', methods=['POST'])
+@cross_origin()
+def registerBot():
+    data = request.get_json(silent=True)
+    buildingID = str(data['buildingID'])
+    botName = data['botName']
+    if db.addBot(botName, buildingID):
+        print('Bot ' + botName + ' registered.')
+        return '[S] Registered new bot'
+    else:
+        return '[S] Bot already registered'
+
+@server.route('/bot/broadcastMessage', methods=['POST'])
+@cross_origin()
 def broadcastBotMessage():
-    #Get a message from a bot and broadcast it to users inside the building associated to the bot'''
+    data = request.get_json(silent=True)
+    botName = data['botName']
+    message = data['message']
+    f.broadcastBotMessage(db, botName, message)
+    return '[S]'
+
 
 if __name__ == '__main__':
     server.run()

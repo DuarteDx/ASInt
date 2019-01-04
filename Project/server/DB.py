@@ -3,18 +3,19 @@ import time
 from building import Building
 from message import Message
 from user import User
+from bot import Bot
 import functions
 
 class DB:
     def __init__(self):    
         try:
-            f = open('users_dump', 'rb')
+            f = open('users.pkl', 'rb')
             self.users = pickle.load(f)
             f.close()
         except IOError:
             self.users = dict()
         try:
-            f = open('buildings_dump', 'rb')
+            f = open('buildings.pkl', 'rb')
             self.buildings = pickle.load(f)
             f.close()
         except IOError:
@@ -25,6 +26,12 @@ class DB:
             f.close()
         except:
             self.logs = list()
+        try:
+            f = open('bots.pkl', 'rb')
+            self.bots = pickle.load(f)
+            f.close()
+        except:
+            self.bots = dict()
 
 
     ########################################
@@ -42,12 +49,13 @@ class DB:
         if userID not in self.users.keys():
             new_user = User(userID, name, latitude, longitude, rang)
             self.users[userID] = new_user
-            f = open('users_dump', 'wb')
+            f = open('users.pkl', 'wb')
             pickle.dump(self.users, f)
             f.close()   
 
     # returns list of all user IDs
     def getAllUsers(self):
+        #TODO check time
         userList = list()
         for usr in self.users:
             userList.append(self.users[usr].id)
@@ -74,9 +82,9 @@ class DB:
                 usersInRange.append({'id':userID, 'userName':self.users[userID].name})
         return usersInRange
 
-    # adds a message to messsage queue of receiverID
-    def sendMessage(self, senderID, senderName, receiverID, message):
-        self.users[receiverID].addMessageToQueue(senderID, senderName, message)
+    # adds a message to message queue of receiverID
+    def sendMessage(self, senderName, receiverID, message):
+        self.users[receiverID].addMessageToQueue(senderName, message)
 
     # updates user location or range or both
     def updateUser(self, userID, latitude=None, longitude=None, rang=None):
@@ -91,6 +99,7 @@ class DB:
                     if b not in self.users[userID].buildings:   # user was not already inside b
                         print("User " + str(userID) + " entered building " + str(b)) 
                         self.users[userID].buildings.append(b)
+                        # append(userID)
                         self.addLog(userID, b, "move", "entered")
                 else:                                       # user is no inside building b
                     if b in self.users[userID].buildings:   # user was inside building b
@@ -111,7 +120,7 @@ class DB:
         if id_ not in self.buildings:
             build = Building(id_, name, float(latitude), float(longitude))
             self.buildings[build.id] = build
-            f = open('buildings_dump', 'wb')
+            f = open('buildings.pkl', 'wb')
             pickle.dump(self.buildings, f)
             f.close()
 
@@ -121,7 +130,28 @@ class DB:
             return self.buildings[buildingID].latitude, self.buildings[buildingID].longitude
         else:
             return 0, 0             
-    
+
+            
+
+    ########################################
+    ##               Bots                 ##
+    ########################################
+
+    def addBot(self, botName, buildingID):
+        # Adds new bot to DB
+        if botName not in self.bots.keys():
+            newBot = Bot(botName, buildingID)
+            self.bots[botName] = newBot
+            f = open('bots.pkl', 'wb')
+            pickle.dump(self.bots, f)
+            f.close()   
+            return True
+        else:
+            return False
+
+    def getBuildingFromBot(self, botName):
+        return self.bots[botName].buildingID
+
 
     ########################################
     ##              Logs                  ##
@@ -132,6 +162,9 @@ class DB:
     def addLog(self, userID, building, type_, data):
         log = {'userID':userID, 'building':building, 'timestamp':time.time(), 'type':type_, 'data':data}
         self.logs.append(log)
+        f = open('logs.pkl', 'wb')
+        pickle.dump(self.logs, f)
+        f.close()   
 
     def printLogs(self):
         print(self.logs)
