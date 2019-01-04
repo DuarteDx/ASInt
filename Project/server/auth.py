@@ -17,5 +17,7 @@ def verifyPassword(password, stored_hash):
 
 def checkToken(token):
     if token in activeTokens:
+        # TODO check Token time
+        # if expired, delete token
         return True
     return False

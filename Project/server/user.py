@@ -14,8 +14,8 @@ class User:
         # o prof escreveu:
         # pubsub.send(msg, topic=dest) para o caso de publish-subscribe
 
-    def addMessageToQueue(self, senderID, senderName, content):
-        self.messageQueue.insert(0,{'senderID':senderID, 'name':senderName, 'content':content})
+    def addMessageToQueue(self, senderName, content):
+        self.messageQueue.insert(0,{'sender':senderName, 'content':content})
 
     def readMessages(self):
         return self.messageQueue
