@@ -2,8 +2,6 @@ import time
 import ajaxFunctions
 import csv
 
-
-
 def addBuildingOption(token):
     print('Press "q" at any moment to cancel')
 
