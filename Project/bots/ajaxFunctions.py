@@ -13,7 +13,7 @@ def sendRegisterMessage(buildingId, botName):
     url = serverURL + 'register'
     data = {'buildingID':buildingId, 'botName':botName}
     response = makePostRequest(url, data)
-    return response.content['botID'] #ToDO: edit this
+    return response.content['botID']
 
 def sendBroadcastMessage(botId, message):
     url = serverURL + 'broadcastMessage'
