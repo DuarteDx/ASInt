@@ -111,7 +111,7 @@ def getUserMessages():
     #Get data from request
     data = request.get_json(silent=True)
     #Parse response
-    userID = str(data['data']['user'])
+    userID = data['data']['user']
     #print('User ' + str(userID) + ' requested his list of messages')
     #Get client's messages from database
     listOfMessages = db.users[userID].readMessages()

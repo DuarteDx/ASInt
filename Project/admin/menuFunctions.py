@@ -47,7 +47,6 @@ def listUsersByBuildinOption(token):
     print('Insert building id')
     buildingId = input('Building id: ')
     usersList = ajaxFunctions.getUsersInBuilding(buildingId, token)
-    # ToDo: Do some parsing to the usersList
     print('Users in building with id ' + buildingId + ' :')
     if usersList:
         for user in usersList:
