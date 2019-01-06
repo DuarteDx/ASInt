@@ -50,7 +50,7 @@ function successFunction(position) {
     //console.log('Your latitude is :'+lat+' and longitude is '+long);
     //Send user id and respective coordinates
     url = serverURL + "/sendLocation";
-    sendPostRequest(url, {'user': dummyID,'location': {'latitude':lat, 'longitude':long}});
+    sendPostRequest(url, {'user': userId,'location': {'latitude':lat, 'longitude':long}});
 }
 
 //Send user data to add him to DB

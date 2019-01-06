@@ -1,5 +1,4 @@
 var serverURL = "http://127.0.0.1:5000";
-const dummyID = 81356;
 
 var userName;
 var userId;
@@ -28,9 +27,9 @@ var sendLocation = new Vue({
     locationSentLast: 'nothing sent'
   },
   created() {
-    setTimeout(() => this.userName = userName, 3000);
-    setTimeout(() => this.userId = userId, 3000);
-    this.interval = setInterval(this.handleSubmit, 2000);
+    setTimeout(() => this.userName = userName, 4000);
+    setTimeout(() => this.userId = userId, 4000);
+    setTimeout(() => this.interval = setInterval(this.handleSubmit, 2000), 5000);
   },
   methods: {
     handleSubmit() {
@@ -59,8 +58,8 @@ var userInfo = new Vue({
     userName: ''
   },
   created() {
-    setTimeout(() => this.userName = userName, 2500);
-    setTimeout(() => this.userId = userId, 2500);
+    setTimeout(() => this.userName = userName, 4000);
+    setTimeout(() => this.userId = userId, 4000);
   }
 })
 
@@ -70,8 +69,8 @@ var sendRange = new Vue({
     range: '',
   },
   created() {
-    setTimeout(() => this.userName = userName, 2500);
-    setTimeout(() => this.userId = userId, 2500);
+    setTimeout(() => this.userName = userName, 4000);
+    setTimeout(() => this.userId = userId, 4000);
   },
   methods: {
     handleSubmit() {
@@ -88,8 +87,8 @@ var sendMessage = new Vue({
     userMessage: '',
   },
   created() {
-    setTimeout(() => this.userName = userName, 2500);
-    setTimeout(() => this.userId = userId, 2500);
+    setTimeout(() => this.userName = userName, 4000);
+    setTimeout(() => this.userId = userId, 4000);
   },
   methods: {
     handleSubmit() {
@@ -106,9 +105,9 @@ var getNearbyUsers = new Vue({
     nearbyUsersList: [],
   },
   created() {
-    setTimeout(() => this.userName = userName, 2500);
-    setTimeout(() => this.userId = userId, 2500);
-    this.interval = setInterval(this.getListOfNearbyUsers, 2000);
+    setTimeout(() => this.userName = userName, 4000);
+    setTimeout(() => this.userId = userId, 4000);
+    setTimeout(() => this.interval = setInterval(this.getListOfNearbyUsers, 2000), 5000);
   },
   methods: {
     getListOfNearbyUsers() {
@@ -129,9 +128,9 @@ var getMessages = new Vue({
     messageList: [],
   },
   created() {
-    setTimeout(() => this.userName = userName, 2500);
-    setTimeout(() => this.userId = userId, 2500);
-    this.interval = setInterval(this.getListOfMessages, 2000);
+    setTimeout(() => this.userName = userName, 4000);
+    setTimeout(() => this.userId = userId, 4000);
+    setTimeout(() => this.interval = setInterval(this.getListOfMessages, 2000), 5000);
   },
   methods: {
     getListOfMessages() {
@@ -141,10 +140,6 @@ var getMessages = new Vue({
       console.log('[C]Requested list of messages for ' + userId);
 
       console.log('[C]get messages button pressed');
-      this.messageListDummy = [{from: 'Duarte', content: 'Oi, tudo bem?'},
-                          {from: 'BotSDEEC', content: 'Não baloiçar nas cadeiras!'},
-                          {from: 'ISTPress', content: 'Notícia de última hora: grupo de alunos sobredotados tiram 20 na cadeira de ASint!'}
-                        ];
     }
   }
 })
