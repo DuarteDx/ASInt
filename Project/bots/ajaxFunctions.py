@@ -1,7 +1,7 @@
 import requests
 import json
 
-serverURL = 'http://127.0.0.1:5000/bot'
+serverURL = 'http://127.0.0.1:5000/bot/'
 
 def makePostRequest(url, data):
     headers = {'Content-Type': 'application/json'}
@@ -12,11 +12,11 @@ def makePostRequest(url, data):
 def sendRegisterMessage(buildingId, botName):
     url = serverURL + 'register'
     data = {'buildingID':buildingId, 'botName':botName}
-    response = makePostRequest(url, data)
-    return response.content['botID']
+    resp = makePostRequest(url, data)
+    return resp
 
-def sendBroadcastMessage(botId, message):
+def sendBroadcastMessage(botName, message):
     url = serverURL + 'broadcastMessage'
-    data = {'botID':botId, 'message':message}
+    data = {'botName':botName, 'message':message}
     makePostRequest(url, data)
     return 'Sent message: ' + message

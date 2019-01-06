@@ -48,7 +48,7 @@ def getClientLocation():
     location = data['data']['location']
     latitude = location['latitude']
     longitude = location['longitude']
-    #print('userID = ' + str(userID) + " Location: " +  str(latitude) + " : " + str(longitude))
+    print('userID = ' + str(userID) + " Location: " +  str(latitude) + " : " + str(longitude))
 
     #Update user in database
     db.updateUser(userID, latitude=latitude, longitude=longitude)
@@ -223,6 +223,7 @@ def broadcastBotMessage():
     data = request.get_json(silent=True)
     botName = data['botName']
     message = data['message']
+    print("Bot " + botName + "sent a message!")
     f.broadcastBotMessage(db, botName, message)
     return '[S]'
 

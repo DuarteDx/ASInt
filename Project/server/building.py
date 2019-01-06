@@ -4,6 +4,7 @@ class Building:
         self.name = name
         self.latitude = latitude
         self.longitude = longitude
+        self.usersInside = list()
 
     def __str__(self):
         return "%d - %s - %f - %f" % (self.id, self.name, self.latitude, self.longitude)

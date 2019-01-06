@@ -99,12 +99,14 @@ class DB:
                     if b not in self.users[userID].buildings:   # user was not already inside b
                         print("User " + str(userID) + " entered building " + str(b)) 
                         self.users[userID].buildings.append(b)
+                        self.buildings[b].usersInside.append(userID)
                         # append(userID)
                         self.addLog(userID, b, "move", "entered")
-                else:                                       # user is no inside building b
+                else:                                       # user is not inside building b
                     if b in self.users[userID].buildings:   # user was inside building b
                         print("User " + str(userID) + " left building " + str(b))
                         self.users[userID].buildings.remove(b)
+                        self.buildings[b].usersInside.remove(userID)
                         self.addLog(userID, b, "move", "left")
         # update range
         if rang != None:
@@ -139,6 +141,8 @@ class DB:
 
     def addBot(self, botName, buildingID):
         # Adds new bot to DB
+        if buildingID not in self.buildings.keys():
+            return False
         if botName not in self.bots.keys():
             newBot = Bot(botName, buildingID)
             self.bots[botName] = newBot
