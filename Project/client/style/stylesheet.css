@@ -17,7 +17,6 @@ button {
     -webkit-transition: .3s;
     -moz-transition: .3s;
     -o-transition: .3s;
-    cursor: url(http://cur.cursors-4u.net/symbols/sym-1/sym46.cur), auto;
 
     border-radius: 5px;
     padding: 15px 25px;
@@ -78,3 +77,12 @@ li {
         margin-bottom: 30px;
     }
 }
+
+.loader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 999!important;
+    background: url('loader.gif') 50% 30% no-repeat rgba(245,245,245,0.89);
+    background-size: 55px 55px;
+  }
