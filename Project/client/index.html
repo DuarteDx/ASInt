@@ -53,7 +53,7 @@
         <div id="getMessages">
             <!--<button v-on:click="getListOfMessages">Get messages</button>-->
             <li v-for="message in messageList">
-                <strong>{{message.name}}</strong>: {{ message.content }}
+                <strong>{{message.sender}}</strong>: {{ message.content }}
             </li>
         </div>
 

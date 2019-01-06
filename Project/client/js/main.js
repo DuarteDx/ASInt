@@ -28,8 +28,8 @@ var sendLocation = new Vue({
     locationSentLast: 'nothing sent'
   },
   created() {
-    setTimeout(() => this.userName = userName, 2500);
-    setTimeout(() => this.userId = userId, 2500);
+    setTimeout(() => this.userName = userName, 3000);
+    setTimeout(() => this.userId = userId, 3000);
   },
   methods: {
     handleSubmit() {
