@@ -176,6 +176,3 @@ class DB:
             if (userID == None or log['userID'] == userID) and (building == None or log['building'] == building):
                 logList.append(log)
         return logList
-
-  
-
