@@ -30,6 +30,7 @@ var sendLocation = new Vue({
   created() {
     setTimeout(() => this.userName = userName, 3000);
     setTimeout(() => this.userId = userId, 3000);
+    this.interval = setInterval(this.handleSubmit, 2000);
   },
   methods: {
     handleSubmit() {
@@ -107,7 +108,7 @@ var getNearbyUsers = new Vue({
   created() {
     setTimeout(() => this.userName = userName, 2500);
     setTimeout(() => this.userId = userId, 2500);
-    this.interval = setInterval(this.getListOfNearbyUsers, 2000)
+    this.interval = setInterval(this.getListOfNearbyUsers, 2000);
   },
   methods: {
     getListOfNearbyUsers() {
@@ -130,7 +131,7 @@ var getMessages = new Vue({
   created() {
     setTimeout(() => this.userName = userName, 2500);
     setTimeout(() => this.userId = userId, 2500);
-    this.interval = setInterval(this.getListOfMessages, 2000)
+    this.interval = setInterval(this.getListOfMessages, 2000);
   },
   methods: {
     getListOfMessages() {
