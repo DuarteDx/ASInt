@@ -190,11 +190,11 @@ def getUserHistory():
     if auth.checkToken(token):
         # Retrieve logs from database
         if (userID != 'None' and buildingID != 'None'):
-            logs = db.retrieveLogs(userID, buildingID)
+            logs = db.retrieveLogs(userID = userID, building = buildingID)
         elif (userID != 'None' and buildingID == 'None'):
-            logs = db.retrieveLogs(userID)
+            logs = db.retrieveLogs(userID = userID)
         elif (userID == 'None' and buildingID != 'None'):
-            logs = db.retrieveLogs(buildingID)
+            logs = db.retrieveLogs(building = buildingID)
         elif (userID == 'None' and buildingID == 'None'):
             logs = db.retrieveLogs()
         return jsonify(logs)

@@ -21,28 +21,21 @@ def broadcastBotMessage(db, botName, content):
     recipients = getUsersInBuilding(db, buildingID)
     if recipients:
         for recv in recipients:
-            db.sendMessage(botName, recv["id"], content)
-            db.addLog(botName, buildingID, content)
+            db.sendMessage(botName, recv, content)
+            db.addLog(botName, buildingID, "message", content)
 
 
 # returns the list of user IDs that are inside buildingID
 def getUsersInBuilding(db, buildingID):
-    # TODO add list of users to each building and return it here
-    userList = list()
     if buildingID not in db.buildings:
         return None
-    for user in db.users:           # check every user
-        if buildingID in db.getBuildingsFromUser(user):       # check if user is inside buildingID
-            if user not in userList:     # check if user already in the list
-                userList.append(user)
-    return userList
+    return db.getUsersInBuilding(buildingID)
 
 # checks if userID is in range of buildingID
-def inRange(db, userID, buildingID):
+def inRange(db, uLat, uLong, buildingID):
     # returns true if closer than 10m to building centre
-    uLat, uLong, _ = db.getUserLocation(userID)
     bLat, bLong = db.getBuildingLocation(buildingID)
-    if getDistanceBetween2Points(uLat, uLong, bLat, bLong) < 10:
+    if getDistanceBetween2Points(uLat, uLong, bLat, bLong) < 20:
         return True
     else:
         return False

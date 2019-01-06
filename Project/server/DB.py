@@ -95,7 +95,7 @@ class DB:
             self.users[userID].updateLocation(latitude, longitude)
             # update user location
             for b in self.buildings:
-                if functions.inRange(self, userID, b):      # user is inside building b
+                if functions.inRange(self, latitude, longitude, b):      # user is inside building b
                     if b not in self.users[userID].buildings:   # user was not already inside b
                         print("User " + str(userID) + " entered building " + str(b)) 
                         self.users[userID].buildings.append(b)
@@ -133,6 +133,11 @@ class DB:
         else:
             return 0, 0             
 
+    def getUsersInBuilding(self, buildingID):
+        if buildingID in self.buildings:
+            return self.buildings[buildingID].usersInside
+        else:
+            return None
             
 
     ########################################
