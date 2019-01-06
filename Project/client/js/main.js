@@ -51,6 +51,15 @@ var sendLocation = new Vue({
   }
 })
 
+var loadingScreen = new Vue({
+  el: '#loadingScreen',
+  data: {
+  },
+  created() {
+    setTimeout(() => document.getElementById("loadingScreen").outerHTML = "", 5500);
+  }
+})
+
 var userInfo = new Vue({
   el: '#userInfo',
   data: {
