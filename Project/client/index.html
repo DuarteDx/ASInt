@@ -39,10 +39,10 @@
 
     </div>
 
-    <div class="middlePanel">
+    <div class="middlePanel" id="sendMessage">
 
         <h2>Messages</h2>
-        <div id="sendMessage">
+        <div >
             <form @submit.prevent="handleSubmit">
                 <label>
                     <p>Send a message:</p>
@@ -53,8 +53,7 @@
             </form>
         </div>
 
-        <div id="getMessages">
-            <!--<button v-on:click="getListOfMessages">Get messages</button>-->
+        <div >
             <li v-for="message in messageList">
                 <strong>{{message.sender}}</strong>: {{ message.content }}
             </li>
@@ -65,7 +64,6 @@
     <div class="rightPanel">
 
         <div id="getNearbyUsers">
-            <!--<button v-on:click="getListOfNearbyUsers">Get nearby users</button>-->
             <h2>Nearby Users</h2>
             <li v-for="user in nearbyUsersList">
                 {{ user.id }} - {{ user.userName }}

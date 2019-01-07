@@ -94,15 +94,22 @@ var sendMessage = new Vue({
   el: '#sendMessage',
   data: {
     userMessage: '',
+    messageList: []
   },
   created() {
     setTimeout(() => this.userName = userName, 4000);
     setTimeout(() => this.userId = userId, 4000);
+    setTimeout(() => this.interval = setInterval(this.getListOfMessages, 2000), 5000);
   },
   methods: {
+    getListOfMessages() {
+      url = serverURL + '/getUserMessages';
+      sendPostRequest(url, {'user':userId}).then(data => this.messageList = data);
+      console.log('[C]Requested list of messages for ' + userId);
+    },
     handleSubmit() {
       url = serverURL + '/broadcastClientMessage';
-      sendPostRequest(url, {'user':userId,'message':this.userMessage});
+      sendPostRequest(url, {'user':userId,'message':this.userMessage}).then(this.getListOfMessages());;
       console.log('[C]Message sent: ' + this.userMessage);
     }
   }
@@ -130,29 +137,6 @@ var getNearbyUsers = new Vue({
     }
   }
 })
-
-var getMessages = new Vue({
-  el: '#getMessages',
-  data: {
-    messageList: [],
-  },
-  created() {
-    setTimeout(() => this.userName = userName, 4000);
-    setTimeout(() => this.userId = userId, 4000);
-    setTimeout(() => this.interval = setInterval(this.getListOfMessages, 2000), 5000);
-  },
-  methods: {
-    getListOfMessages() {
-      //ToDo: Ajax code to get list of messages
-      url = serverURL + '/getUserMessages';
-      sendPostRequest(url, {'user':userId}).then(data => this.messageList = data);
-      console.log('[C]Requested list of messages for ' + userId);
-
-      console.log('[C]get messages button pressed');
-    }
-  }
-})
-
 
 
 
