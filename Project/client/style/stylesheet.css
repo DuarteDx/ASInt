@@ -86,6 +86,6 @@ li {
     margin-top: -40px;
     margin-left: -40px;
     z-index: 999!important;
-    background: url('../loading.gif') 45% 45% no-repeat rgba(245,245,245,1);
+    background: url('../assets/loading.gif') 45% 45% no-repeat rgba(245,245,245,1);
     background-size: 70px 70px;
   }

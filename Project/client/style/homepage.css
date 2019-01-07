@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+
+
+body {
+    display: flex;
+    justify-content: center;
+    font-family: 'Raleway', sans-serif;
+    background: url(../assets/alameda.jpg) no-repeat center center fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #fff;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+    background-color: #acacaccb;
+    border-radius: 5px;
+    width: 350px;
+    height: 300px;
+}
+
+.main-logo {
+    width: 90px;
+}
+
+.title {
+    font-size: 20px;
+}
+
+button {
+    text-decoration: none;
+    color: #55acee;
+    border: none;
+    transition: .3s;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -o-transition: .3s;
+
+    border-radius: 5px;
+    padding: 15px 25px;
+    font-size: 22px;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+    display: inline-block;
+    background-color: #007aff;
+    box-shadow: 0px 5px 0px 0px #0059b8;
+    outline: 0;
+    cursor: pointer;
+}
+
+button:active {
+    transform: translate(0px, 5px);
+    -webkit-transform: translate(0px, 5px);
+    box-shadow: 0px 1px 0px 0px;
+    outline: 0;
+}
+
+button:hover {
+    background-color: #2890ff;
+}
